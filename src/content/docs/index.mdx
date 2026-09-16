@@ -1,16 +1,16 @@
 ---
 title: Conxian Sovereign Infrastructure
-description: Hardware-Secured, Memory-Safe Sovereign Infrastructure for Bitcoin L1, ISO 20022 Banking, and AI Settlement.
+description: Gateway to Conxian sovereign infrastructure, Bitcoin Layer 1 primitives, and enterprise integrations.
 template: splash
 hero:
-  tagline: Pure Deep-Tech B2B Infrastructure for Hardware Enclaves, MuSig2, DLCs, and Legacy ISO 20022 Banking.
+  tagline: Hardware-Secured, Memory-Safe Sovereign Infrastructure for Bitcoin L1 Primitives, MuSig2, and DLC Settlement.
   actions:
-    - text: Repository Matrix
-      link: /ecosystem/
+    - text: Getting Started
+      link: /guides/getting-started/
       icon: right-arrow
       variant: primary
-    - text: Developer Hub
-      link: /docs/enclave-sdk/
+    - text: Repository Matrix
+      link: /ecosystem/status/
       icon: external
       variant: secondary
 ---
@@ -21,33 +21,36 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 
 Conxian provides enterprise-grade, memory-safe software primitives and stateless container images for execution strictly within private cloud environments and physical hardware enclaves (AWS Nitro, Intel SGX, AMD SEV).
 
+### Cross-Repository Ecosystem Subdomains
+
+Explore our core subdomains and cross-repository services across the Conxian ecosystem:
+
 <CardGrid>
-	<Card title="Hardware Enclave Security (TEE)" icon="setting">
-		Memory-safe Rust abstractions executing inside secure enclaves. Zero runtime dependencies on public cloud operators.
+	<Card title="Main Developer Portal" icon="open-book">
+		[conxian.org](https://conxian.org) - Central technical documentation, developer portal, and public status surface.
 	</Card>
-	<Card title="Bitcoin L1 & L3 Settlement" icon="open-book">
-		Native MuSig2 Schnorr multi-signatures (BIP-340/341/342) and Discrete Log Contracts (DLCs) for trustless settlement.
+	<Card title="Bitcoin DLC Settlement Engine" icon="setting">
+		[nexus.conxian.org](https://nexus.conxian.org) - Anchor builder, DLC state solver, and Bitcoin L1/L3 trustless settlement engine.
 	</Card>
-	<Card title="ISO 20022 Banking Normalizer" icon="document">
-		Native XML message parsers (pacs.008, pacs.009, camt.053) with OData v4 JSON query callback interfaces for legacy bank integration.
+	<Card title="ISO 20022 Banking Gateway" icon="document">
+		[gateway.conxian.org](https://gateway.conxian.org) - ISO 20022 XML normalizer (pacs.008, camt.053) and OData v4 callback engine.
 	</Card>
-	<Card title="Zero-Knowledge Auditability" icon="star">
-		Cryptographic settlement transparency feeds powered by `market.conxian.org` with no exposure of underlying financial transactions.
+	<Card title="Hardware Enclave SDK" icon="laptop">
+		[sdk.conxian.org](https://sdk.conxian.org) - C / Rust enclave drivers for AWS Nitro, Intel SGX, AMD SEV, and MuSig2 signing.
+	</Card>
+	<Card title="Container Orchestration Platform" icon="puzzle">
+		[platform.conxian.org](https://platform.conxian.org) - Stateless container deployment manifests, enclave parameter validation, and runners.
+	</Card>
+	<Card title="Zero-Knowledge Transparency Feed" icon="star">
+		[market.conxian.org](https://market.conxian.org) - Cryptographic transparency proofs, auditability reporting, and state verification.
 	</Card>
 </CardGrid>
 
 ---
 
-## Strict Domain Firewall Routing
+## Core Infrastructure Pillars
 
-Conxian maintains a strict legal and architectural firewall separating the open-source **Protocol Surface** (`conxian.org`) from the corporate **Operations Surface** (`conxian-labs.com`).
-
-| Component | Target Domain / FQDN | Surface Type | Description |
-| :--- | :--- | :--- | :--- |
-| **Enclave SDK** | `sdk.conxian.org` | Protocol (`conxian.org`) | Hardware Enclave drivers & MuSig2 signing routines |
-| **Banking Gateway** | `gateway.conxian.org` | Protocol (`conxian.org`) | ISO 20022 XML normalizers & OData v4 callbacks |
-| **Settlement Engine** | `nexus.conxian.org` | Protocol (`conxian.org`) | Bitcoin L1/L3 DLC contract engine & state solver |
-| **Orchestration** | `platform.conxian.org` | Protocol (`conxian.org`) | Sovereign container deployment manifests & runners |
-| **Transparency Feed** | `market.conxian.org` | Protocol (`conxian.org`) | Zero-knowledge settlement auditability feeds |
-| **B2B Licensing** | `bos.conxian-labs.com` | Corporate (`conxian-labs.com`) | B2B enterprise client portal & license management |
-| **Corporate Portal** | `www.conxian-labs.com` | Corporate (`conxian-labs.com`) | Corporate marketing, legal agreements & company news |
+1. **Bitcoin L1 & L3 Primitives:** Native MuSig2 Schnorr multi-signatures (BIP-340/341/342) and Discrete Log Contracts (DLCs) for trustless financial settlement.
+2. **ISO 20022 Legacy Banking:** Native XML message parsers (`pacs.008`, `pacs.009`, `camt.053`) with OData v4 JSON query callback interfaces.
+3. **Hardware Enclaves (TEE):** Memory-safe Rust abstractions executing inside isolated hardware enclaves with zero cloud provider runtime trust.
+4. **Zero-Knowledge Transparency:** Cryptographic settlement auditability feeds without exposure of underlying financial transaction data.
