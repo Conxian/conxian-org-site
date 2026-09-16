@@ -1,0 +1,53 @@
+---
+title: Master Architecture Review
+description: Comprehensive overview of the 5-phase reconnaissance, component dependency trees, and B2B deployment simulation.
+---
+
+## Conxian Architectural Directive
+
+Conxian provides pure **Deep-Tech B2B Infrastructure** for enterprise clients (tier-1 financial institutions, central bank digital currency pilots, and enterprise AI node networks).
+
+Conxian does **NOT** operate public DeFi yield protocols, liquidity pools, or custodial bridge systems. We license stateless container images and hardware enclave execution parameters to run strictly inside enterprise private clouds.
+
+---
+
+## Subsystem Dependency Tree
+
+```
+                                +---------------------------+
+                                |     conxius-platform      |
+                                | (Orchestration & Enclave) |
+                                +-------------+-------------+
+                                              |
+                     +------------------------+------------------------+
+                     |                                                 |
+                     v                                                 v
+        +-------------------------+                       +-------------------------+
+        |     conxian-gateway     |                       |      conxian-nexus      |
+        |  (ISO 20022 Normalizer) |                       | (Bitcoin L1/L3 DLCs)    |
+        +------------+------------+                       +------------+------------+
+                     |                                                 |
+                     +------------------------+------------------------+
+                                              |
+                                              v
+                                +---------------------------+
+                                |    conxius-enclave-sdk    |
+                                |  (Hardware Enclave / TEE) |
+                                +-------------+-------------+
+                                              |
+                                              v
+                                +---------------------------+
+                                |     lib-conxian-core      |
+                                |  (Rust Primitives/MuSig2) |
+                                +---------------------------+
+```
+
+---
+
+## Non-Sovereign Code & Deprecated Dependency Purge
+
+To preserve maximum security and auditability, all legacy Web3/altcoin code has been purged from the organizational codebase:
+* **EVM & Smart Contract Purge:** Removed `@ethersproject`, `solc`, EVM RPC endpoints, and ERC-20 bridge adapters.
+* **Altcoin Network Purge:** Removed Solana and Cosmos cross-chain relayer modules.
+* **Public DeFi Purge:** Removed public AMM liquidity adapters.
+* **Standardized Stack:** 100% Rust memory-safe crates targeting native Bitcoin L1 (MuSig2, DLCs), ISO 20022 XML normalizer APIs, and TEE Enclave hardware drivers.

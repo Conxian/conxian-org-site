@@ -1,0 +1,52 @@
+---
+title: conxius-platform
+description: Sovereign Container Orchestration (platform.conxian.org) - Docker compose, Kubernetes manifests, and enclave runtime configuration.
+---
+
+## Overview
+
+`conxius-platform` manages the deployment and execution of stateless Conxian container images inside client private cloud infrastructure.
+
+* **Target Subdomain:** `platform.conxian.org`
+* **Deployment Formats:** Helm Charts, Docker Compose, AWS Nitro Enclave CLI manifests.
+* **Health & Monitoring:** Prometheus metrics exporter endpoints (`/metrics`) and OpenTelemetry trace emitters.
+
+---
+
+## Production Docker Compose Orchestration Example
+
+```yaml
+version: '3.8'
+
+services:
+  conxius-sdk:
+    image: registry.conxian.org/conxius-enclave-sdk:v1.4.2
+    container_name: conxius_enclave_sdk
+    devices:
+      - "/dev/nitro_enclaves:/dev/nitro_enclaves"
+    environment:
+      - TEE_PROVIDER=aws_nitro
+      - TEE_ENCLAVE_MEMORY_MB=8192
+    restart: unless-stopped
+
+  conxian-gateway:
+    image: registry.conxian.org/conxian-gateway:v1.4.2
+    container_name: conxian_iso20022_gateway
+    ports:
+      - "8443:8443"
+    environment:
+      - GATEWAY_LISTEN_PORT=8443
+    depends_on:
+      - conxius-sdk
+    restart: unless-stopped
+
+  conxian-nexus:
+    image: registry.conxian.org/conxian-nexus:v1.4.2
+    container_name: conxian_settlement_nexus
+    environment:
+      - BITCOIN_NETWORK=mainnet
+      - BITCOIN_RPC_URL=https://node.internal.bank.com:8332
+    depends_on:
+      - conxius-sdk
+    restart: unless-stopped
+```

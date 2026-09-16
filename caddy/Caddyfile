@@ -1,0 +1,46 @@
+# ==============================================================================
+# CONXIAN PROTOCOL SURFACE (conxian.org) CADDY AUTOMATED TLS CONFIGURATION
+# ==============================================================================
+
+{
+	email admin@conxian.org
+}
+
+# Main Technical Protocol Surface & Developer Docs
+conxian.org, www.conxian.org {
+	root * /usr/share/caddy
+	file_server
+
+	header {
+		X-Frame-Options "DENY"
+		X-Content-Type-Options "nosniff"
+		X-XSS-Protection "1; mode=block"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://*.conxian.org;"
+	}
+
+	# Fallback for Astro SSG routes
+	try_files {path} {path}/ {path}/index.html /404.html
+}
+
+# Subdomain Reverse Proxy Directives
+nexus.conxian.org {
+	reverse_proxy conxian_settlement_nexus:8080
+}
+
+gateway.conxian.org {
+	reverse_proxy conxian_iso20022_gateway:8443
+}
+
+sdk.conxian.org {
+	reverse_proxy conxius_enclave_sdk:9090
+}
+
+platform.conxian.org {
+	reverse_proxy conxius_platform_orchestration:8000
+}
+
+market.conxian.org {
+	reverse_proxy conxian_market_audit:3000
+}

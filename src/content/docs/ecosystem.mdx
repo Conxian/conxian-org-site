@@ -1,0 +1,45 @@
+---
+title: Repository Status Matrix
+description: Live baseline index and routing map for all 12 core Conxian repositories.
+---
+
+## Conxian Ecosystem Repository Index
+
+Below is the definitive index of all 12 core repositories within the Conxian GitHub organization, detailing their primary tech stack, domain routing destination, and current baseline status.
+
+| # | Repository | FQDN Routing | Tech Stack | Architectural Purpose | Status |
+| :-: | :--- | :--- | :--- | :--- | :--- |
+| 1 | **`lib-conxian-core`** | N/A (Core Crate) | Rust (`no_std`) | Memory-safe cryptographic primitives, MuSig2, Schnorr, DLC models | Active Baseline |
+| 2 | **`conxian-nexus`** | `nexus.conxian.org` | Rust | Bitcoin L1 anchor builder, DLC state solver & settlement engine | Active Baseline |
+| 3 | **`conxian-gateway`** | `gateway.conxian.org` | Rust / Tokio | ISO 20022 XML normalizer (pacs.008, camt.053) & OData v4 callbacks | Active Baseline |
+| 4 | **`conxius-enclave-sdk`** | `sdk.conxian.org` | C / Rust | Hardware enclave drivers (AWS Nitro, Intel SGX, AMD SEV) & MuSig2 signer | Active Baseline |
+| 5 | **`conxius-platform`** | `platform.conxian.org` | Rust / K8s | Stateless container orchestration & enclave parameter validation | Active Baseline |
+| 6 | **`conxian_market`** | `market.conxian.org` | Rust / TS | Zero-knowledge transparency proofs & auditability reporting | Active Baseline |
+| 7 | **`conxian-business`** | `bos.conxian-labs.com` | React / Node | Enterprise client portal, license management & B2B contract backend | Active Baseline |
+| 8 | **`conxian-labs-site`** | `www.conxian-labs.com` | Next.js | Conxian Labs Inc. corporate website & enterprise sales portal | Active Baseline |
+| 9 | **`conxian-org-site`** | `conxian.org` | Astro / Starlight | Open-source developer docs, status portal & technical distribution hub | Active / Live |
+| 10 | **`.github`** | N/A (Governance) | YAML | Organization-wide security policies, Gitleaks workflows, CODEOWNERS | Active Baseline |
+| 11 | **`conxian-cli`** | N/A (CLI Tool) | Rust | Unified client CLI installer & pre-flight hardware enclave validator | Spec Stage |
+| 12 | **`conxian-spec`** | N/A (Schemas) | JSON Schema / Proto | Canonical schemas for ISO 20022 XML to Bitcoin DLC mappings | Spec Stage |
+
+---
+
+## Domain Routing Architecture
+
+All `conxian.org` domains serve technical distribution, developer documentation, and public cryptographic status feeds. Corporate sales, client billing, and legal operations are routed strictly to `conxian-labs.com`.
+
+```
+                    +-----------------------------------+
+                    |        ORGANIZATION ROUTER        |
+                    +-----------------+-----------------+
+                                      |
+            +-------------------------+-------------------------+
+            |                                                   |
+            v                                                   v
+  [ conxian.org Protocol ]                           [ conxian-labs.com Corp ]
+  ├── nexus.conxian.org                              ├── bos.conxian-labs.com
+  ├── gateway.conxian.org                            └── www.conxian-labs.com
+  ├── sdk.conxian.org
+  ├── platform.conxian.org
+  └── market.conxian.org
+```

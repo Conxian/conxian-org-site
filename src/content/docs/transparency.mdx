@@ -1,0 +1,40 @@
+---
+title: Auditability & Transparency
+description: Zero-knowledge settlement proofs, cryptographic auditability, and transparency surface powered by market.conxian.org.
+---
+
+## Cryptographic Settlement Transparency
+
+Conxian provides real-time cryptographic auditability for enterprise settlements without exposing sensitive counterparty information, transaction values, or internal banking records.
+
+### Zero-Knowledge Proof Infrastructure
+
+The `conxian_market` subsystem (`market.conxian.org`) generates zero-knowledge proofs (ZKPs) verifying that:
+1. **Solvency Verification:** Every Discrete Log Contract (DLC) collateral locked on Bitcoin Layer 1 equals or exceeds the total liquidity requested in normalized ISO 20022 `pacs.008` messages.
+2. **Attestation Validity:** The executing hardware enclave (AWS Nitro / Intel SGX / AMD SEV) was running an unaltered, cryptographically signed Conxian image at the exact timestamp of execution.
+3. **Execution Integrity:** MuSig2 key aggregation and partial signatures strictly followed BIP-340/341/342 specifications without nonce reuse.
+
+---
+
+## Live Audit Feeds & Subdomain Integration
+
+Enterprise auditors and clients monitor settlement proofs via the following endpoints:
+
+* **Transparency Feed:** `https://market.conxian.org/api/v1/proofs/latest`
+* **Enclave Attestation Registry:** `https://market.conxian.org/api/v1/attestations/valid`
+* **Bitcoin L1 Anchor Proofs:** `https://nexus.conxian.org/api/v1/anchors/verify`
+
+### Zero-Knowledge Proof Schema
+
+```json
+{
+  "proof_id": "zkp_9f8a7b6c5d4e3f2a1b",
+  "timestamp_utc": "2026-09-16T12:00:00Z",
+  "settlement_engine": "conxian-nexus-v1.4.2",
+  "enclave_measurement_pcr0": "a1b2c3d4e5f67890123456789abcdef0123456789abcdef0123456789abcdef0",
+  "iso20022_message_type": "pacs.008.001.10",
+  "btc_dlc_contract_id": "dlc_00294810293810293810",
+  "solvency_status": "PROVEN_VALID",
+  "musig2_signature_verified": true
+}
+```

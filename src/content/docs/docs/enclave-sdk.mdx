@@ -1,0 +1,36 @@
+---
+title: conxius-enclave-sdk
+description: Hardware Enclave SDK (sdk.conxian.org) - AWS Nitro Enclaves, Intel SGX, AMD SEV drivers, and MuSig2 signing.
+---
+
+## Overview
+
+`conxius-enclave-sdk` provides memory-safe C and Rust abstractions for running cryptographic signing and attestation workloads inside hardware Trusted Execution Environments (TEEs).
+
+* **Target Subdomain:** `sdk.conxian.org`
+* **Supported TEE Architectures:** AWS Nitro Enclaves, Intel SGX2, AMD SEV-SNP.
+* **Cryptographic Primitives:** MuSig2 key aggregation (`BIP-340`), Schnorr signatures (`BIP-341`), and Discrete Log Contract (DLC) adaptor signatures.
+
+---
+
+## Technical Specifications
+
+### Memory Safety & Attestation Flow
+
+1. **Isolation:** Key material is decrypted exclusively inside enclave memory and never swapped to untrusted host disk storage.
+2. **Attestation Generation:** Hardware attestation documents (PCR0/PCR1/PCR2 measurements) are signed directly by the processor security chip (e.g., AWS Nitro Security Chip or AMD Platform Security Processor).
+3. **mTLS Handshake:** The enclave uses its attestation key pair to establish mTLS channels with `conxian-gateway` and `conxian-nexus`.
+
+```rust
+// Rust Enclave Signing Interface Example
+use lib_conxian_core::musig2::{MuSig2KeyAgg, PartialSignature};
+
+pub fn generate_musig2_partial_sig(
+    enclave_secret_key: &[u8; 32],
+    agged_pubkey: &MuSig2KeyAgg,
+    msg_hash: &[u8; 32],
+) -> Result<PartialSignature, EnclaveError> {
+    // Verified memory-safe execution inside hardware enclave boundary
+    enclave_crypto::musig2_sign_isolated(enclave_secret_key, agged_pubkey, msg_hash)
+}
+```

@@ -1,0 +1,40 @@
+---
+title: Unified CLI Enclave Installer
+description: Specification for conxian-cli pre-flight hardware enclave and environment validator.
+---
+
+## Overview
+
+The `conxian-cli` utility provides an automated, pre-flight environment and hardware parameter validator for enterprise clients deploying Conxian stateless container workloads.
+
+Before spinning up container instances, `conxian-cli` verifies host CPU flags, Linux kernel lockdown settings, hugepages allocation, Nitro/SGX device drivers, and network RPC endpoints.
+
+---
+
+## Pre-Flight Check Commands
+
+```bash
+# Execute full pre-flight hardware enclave and environment check
+conxian-cli preflight --config /etc/conxian/.env --enclave-check
+
+# Generate Hardware Enclave Attestation Report
+conxian-cli enclave attest --output /var/run/enclave/attestation.bin
+
+# Verify ISO 20022 XML Gateway endpoints
+conxian-cli gateway verify-schemas --schema-dir /opt/conxian/schemas/iso20022/
+```
+
+### Pre-Flight Check Output Sample
+
+```
+[INFO] Conxian Sovereign Infrastructure Pre-Flight Diagnostic v1.0.0
+[OK] Operating System: Linux 6.8.0-1014-aws (x86_64)
+[OK] CPU Architecture: AMD EPYC 7R13 (SEV-SNP Supported)
+[OK] Hardware Enclave Driver: /dev/nitro_enclaves present (Permissions 0660)
+[OK] Kernel lockdown mode: none (Hugepages allocated: 4096 x 2MB)
+[OK] Environment File /etc/conxian/.env verified (All 18 required keys present)
+[OK] HELT License Token valid (Signed by Conxian Labs Inc. CA)
+[OK] Bitcoin L1 Node reachable at https://node.internal.bank.com:8332 (Mainnet Block Height: 889102)
+[OK] ISO 20022 Schema validation passed (pacs.008.001.10, camt.053.001.10)
+[SUCCESS] Environment fully validated. Safe to start conxian-platform container orchestration.
+```

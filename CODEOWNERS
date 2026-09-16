@@ -1,0 +1,16 @@
+# ==============================================================================
+# CONXIAN ORGANIZATION CODEOWNERS GOVERNANCE
+# ==============================================================================
+
+# Global Protocol Surface Owners
+* @Conxian/lead-systems-engineers @Conxian/security-team
+
+# Architecture & Security Governance
+/RECONNAISSANCE_AND_ARCHITECTURE_REVIEW.md @Conxian/lead-systems-engineers
+/src/content/docs/docs/domain-firewall.mdx @Conxian/security-team
+
+# Infrastructure & Proxy Configurations
+/nginx/ @Conxian/devops-team @Conxian/security-team
+/caddy/ @Conxian/devops-team @Conxian/security-team
+/Dockerfile @Conxian/devops-team
+/.github/workflows/ @Conxian/security-team

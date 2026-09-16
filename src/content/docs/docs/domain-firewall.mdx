@@ -1,0 +1,51 @@
+---
+title: Domain Separation Firewall
+description: Strict legal and architectural firewall routing specifications for conxian.org and conxian-labs.com.
+---
+
+## Legal & Architectural Domain Firewall
+
+Conxian maintains a zero-trust legal and network firewall separating the open-source **Protocol & Developer Surface** (`conxian.org`) from the corporate **Business & Operations Surface** (`conxian-labs.com`).
+
+```
+                              +-------------------------------------------+
+                              |         ENTERPRISE CLIENT INGRESS          |
+                              +--------------------+----------------------+
+                                                   |
+                         +-------------------------+-------------------------+
+                         |                                                   |
+                         v                                                   v
+        +---------------------------------+                 +---------------------------------+
+        |  PROTOCOL & DEV SURFACE         |                 |  CORPORATE & GOVERNANCE SURFACE |
+        |  (conxian.org)                  |                 |  (conxian-labs.com)             |
+        |  Pure Tech Distribution & Docs  |                 |  B2B Sales, Legal, Operations   |
+        +----------------+----------------+                 +----------------+----------------+
+                         |                                                   |
+        +----------------+----------------+                 +----------------+----------------+
+        | - nexus.conxian.org             |                 | - bos.conxian-labs.com          |
+        | - gateway.conxian.org           |                 | - www.conxian-labs.com          |
+        | - sdk.conxian.org               |                 +---------------------------------+
+        | - platform.conxian.org          |
+        | - market.conxian.org            |
+        +---------------------------------+
+```
+
+### Complete Routing Matrix
+
+| Subdomain FQDN | Surface | Primary Service | Allowed CORS Origins |
+| :--- | :--- | :--- | :--- |
+| `nexus.conxian.org` | Protocol (`conxian.org`) | Bitcoin L1/L3 DLC engine & state solver | `https://conxian.org`, `https://market.conxian.org` |
+| `gateway.conxian.org` | Protocol (`conxian.org`) | ISO 20022 XML normalizer & OData v4 callbacks | `https://conxian.org`, `https://platform.conxian.org` |
+| `sdk.conxian.org` | Protocol (`conxian.org`) | Hardware Enclave TEE SDK & MuSig2 drivers | `https://conxian.org` |
+| `platform.conxian.org` | Protocol (`conxian.org`) | Container orchestration & deployment specs | `https://conxian.org` |
+| `market.conxian.org` | Protocol (`conxian.org`) | Zero-knowledge auditability & status feed | `https://conxian.org` |
+| `bos.conxian-labs.com` | Corporate (`conxian-labs.com`) | B2B client portal & licensing backend | `https://www.conxian-labs.com` |
+| `www.conxian-labs.com` | Corporate (`conxian-labs.com`) | Corporate marketing & legal portal | `https://conxian-labs.com` |
+
+---
+
+## Firewall Enforcement Principles
+
+1. **No Shared Cookies or State:** `conxian.org` subdomains never issue or read authentication cookies from `conxian-labs.com`.
+2. **CORS Restrictions:** Strict `Access-Control-Allow-Origin` headers prevent unauthorized cross-origin data leaks between corporate marketing pages and protocol status endpoints.
+3. **No Marketing Scripts on Protocol Surfaces:** `conxian.org` carries zero commercial tracking scripts, Google Analytics, or third-party marketing beacons.

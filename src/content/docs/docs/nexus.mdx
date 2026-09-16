@@ -1,0 +1,20 @@
+---
+title: conxian-nexus
+description: Bitcoin L1/L3 Settlement Engine (nexus.conxian.org) - Discrete Log Contract (DLC) state machine and anchor transactions.
+---
+
+## Overview
+
+`conxian-nexus` is the state proof solver and settlement execution engine responsible for anchoring bank-to-bank obligations directly to Bitcoin Layer 1 using Discrete Log Contracts (DLCs).
+
+* **Target Subdomain:** `nexus.conxian.org`
+* **Bitcoin Protocols:** Schnorr Signatures (`BIP-340`), Taproot (`BIP-341`), Tapscript (`BIP-342`), DLCs (`BIP-175`).
+* **Database Engine:** LMDB memory-mapped database for ultra-low latency transaction state tracking.
+
+---
+
+## DLC Settlement Flow
+
+1. **Funding Phase:** Debtors and Creditors create a 2-of-2 MuSig2 Taproot funding output on Bitcoin L1.
+2. **Execution Phase:** Oracle attestations (derived from ISO 20022 message verification) enable either party to execute the matching execution transaction without counterparty risk.
+3. **Refund Phase:** Pre-negotiated time-locked refund transactions ensure funds are restored if settlement parameters are not met within the agreed window.

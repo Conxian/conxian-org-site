@@ -1,0 +1,53 @@
+---
+title: Conxian Sovereign Infrastructure
+description: Hardware-Secured, Memory-Safe Sovereign Infrastructure for Bitcoin L1, ISO 20022 Banking, and AI Settlement.
+template: splash
+hero:
+  tagline: Pure Deep-Tech B2B Infrastructure for Hardware Enclaves, MuSig2, DLCs, and Legacy ISO 20022 Banking.
+  actions:
+    - text: Repository Matrix
+      link: /ecosystem/
+      icon: right-arrow
+      variant: primary
+    - text: Developer Hub
+      link: /docs/enclave-sdk/
+      icon: external
+      variant: secondary
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## Sovereign Protocol Architecture
+
+Conxian provides enterprise-grade, memory-safe software primitives and stateless container images for execution strictly within private cloud environments and physical hardware enclaves (AWS Nitro, Intel SGX, AMD SEV).
+
+<CardGrid>
+	<Card title="Hardware Enclave Security (TEE)" icon="setting">
+		Memory-safe Rust abstractions executing inside secure enclaves. Zero runtime dependencies on public cloud operators.
+	</Card>
+	<Card title="Bitcoin L1 & L3 Settlement" icon="open-book">
+		Native MuSig2 Schnorr multi-signatures (BIP-340/341/342) and Discrete Log Contracts (DLCs) for trustless settlement.
+	</Card>
+	<Card title="ISO 20022 Banking Normalizer" icon="document">
+		Native XML message parsers (pacs.008, pacs.009, camt.053) with OData v4 JSON query callback interfaces for legacy bank integration.
+	</Card>
+	<Card title="Zero-Knowledge Auditability" icon="star">
+		Cryptographic settlement transparency feeds powered by `market.conxian.org` with no exposure of underlying financial transactions.
+	</Card>
+</CardGrid>
+
+---
+
+## Strict Domain Firewall Routing
+
+Conxian maintains a strict legal and architectural firewall separating the open-source **Protocol Surface** (`conxian.org`) from the corporate **Operations Surface** (`conxian-labs.com`).
+
+| Component | Target Domain / FQDN | Surface Type | Description |
+| :--- | :--- | :--- | :--- |
+| **Enclave SDK** | `sdk.conxian.org` | Protocol (`conxian.org`) | Hardware Enclave drivers & MuSig2 signing routines |
+| **Banking Gateway** | `gateway.conxian.org` | Protocol (`conxian.org`) | ISO 20022 XML normalizers & OData v4 callbacks |
+| **Settlement Engine** | `nexus.conxian.org` | Protocol (`conxian.org`) | Bitcoin L1/L3 DLC contract engine & state solver |
+| **Orchestration** | `platform.conxian.org` | Protocol (`conxian.org`) | Sovereign container deployment manifests & runners |
+| **Transparency Feed** | `market.conxian.org` | Protocol (`conxian.org`) | Zero-knowledge settlement auditability feeds |
+| **B2B Licensing** | `bos.conxian-labs.com` | Corporate (`conxian-labs.com`) | B2B enterprise client portal & license management |
+| **Corporate Portal** | `www.conxian-labs.com` | Corporate (`conxian-labs.com`) | Corporate marketing, legal agreements & company news |
