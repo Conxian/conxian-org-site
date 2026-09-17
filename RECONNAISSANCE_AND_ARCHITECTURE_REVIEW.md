@@ -155,7 +155,7 @@ TEE_ATTESTATION_DOC_PATH=/var/run/enclave/attestation.bin
 TEE_ENCLAVE_CID=16
 TEE_ENCLAVE_MEMORY_MB=8192
 TEE_ENCLAVE_CPU_COUNT=4
-HELT_LICENSE_TOKEN=eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9...
+HELT_LICENSE_TOKEN=<YOUR_HELT_LICENSE_TOKEN>
 
 # ------------------------------------------------------------------------------
 # 2. BITCOIN L1 / L3 SETTLEMENT NODE (NEXUS)
