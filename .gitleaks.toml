@@ -1,0 +1,9 @@
+[allowlist]
+description = "Global allowlist for sample documentation tokens and historic commits"
+commits = [
+    "5282054a7c9ca4bdab2e4c0698859fdf60d91158"
+]
+regexes = [
+    '''HELT_LICENSE_TOKEN''',
+    '''<YOUR_HELT_LICENSE_TOKEN>'''
+]
