@@ -22,11 +22,11 @@ export default defineConfig({
 					label: 'Ecosystem Subdomains',
 					items: [
 						{ label: 'Main Developer Portal', link: 'https://conxian.org' },
-						{ label: 'Bitcoin DLC Settlement Engine', link: 'https://nexus.conxian.org' },
-						{ label: 'ISO 20022 Banking Gateway', link: 'https://gateway.conxian.org' },
-						{ label: 'Hardware Enclave SDK', link: 'https://sdk.conxian.org' },
-						{ label: 'Container Orchestration Platform', link: 'https://platform.conxian.org' },
-						{ label: 'Zero-Knowledge Transparency Feed', link: 'https://market.conxian.org' },
+						{ label: 'Bitcoin DLC Settlement Engine (repository)', link: 'https://github.com/Conxian/conxian-nexus' },
+						{ label: 'ISO 20022 Banking Gateway (repository)', link: 'https://github.com/Conxian/conxian-gateway' },
+						{ label: 'Hardware Enclave SDK (repository)', link: 'https://github.com/Conxian/conxius-enclave-sdk' },
+						{ label: 'Container Orchestration Platform (repository)', link: 'https://github.com/Conxian/conxius-platform' },
+						{ label: 'Zero-Knowledge Transparency Feed (repository)', link: 'https://github.com/Conxian/conxian_market' },
 					],
 				},
 				{
