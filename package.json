@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/starlight": "^0.42.1",
     "@astrojs/tailwind": "^6.0.2",
+    "@astrojs/vercel": "^11.0.12",
     "astro": "^7.2.10",
     "sharp": "^0.35.3"
   },
