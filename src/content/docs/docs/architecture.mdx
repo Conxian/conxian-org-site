@@ -51,3 +51,14 @@ To preserve maximum security and auditability, all legacy Web3/altcoin code has 
 * **Altcoin Network Purge:** Removed Solana and Cosmos cross-chain relayer modules.
 * **Public DeFi Purge:** Removed public AMM liquidity adapters.
 * **Standardized Stack:** 100% Rust memory-safe crates targeting native Bitcoin L1 (MuSig2, DLCs), ISO 20022 XML normalizer APIs, and TEE Enclave hardware drivers.
+
+---
+
+## CXIP #1317 Proposal Alignment & Org-Wide Refinement
+
+As established in **[Conxian Business Issue #1317](https://github.com/Conxian/conxian-business/issues/1317)** (*CXIP?:: Conxian org wide upgrade and refinement proposal*), the Conxian technical architecture enforces four foundational pillars across all 12 core repositories:
+
+1. **Firewalled Domain Architecture:** `conxian.org` (Protocol Surface) operates independently from `conxian-labs.com` (Corporate Surface).
+2. **Zero-Cruft Sovereignty:** Absolute removal of EVM, altcoin, and public DeFi dependencies.
+3. **Hardware Enclave Assurance:** TEE remote attestation and Hardware Enclave License Tokens (HELT) required for container boot.
+4. **ISO 20022 -> Bitcoin DLC Pipeline:** Seamless normalization of `pacs.008` XML wire messages into Taproot/DLC Bitcoin L1 anchors with OData v4 JSON callbacks.
