@@ -112,3 +112,13 @@ docker run -d --name conxian_site -p 80:80 conxian-org-site:latest
 ## Governance & Security Policy
 
 All code changes to `conxian.org` must pass the Gitleaks automated secret scanner and receive approval from assigned CODEOWNERS (`@Conxian/lead-systems-engineers` and `@Conxian/security-team`).
+
+---
+
+## Organizational Refinement & CXIP Proposal #1317
+
+Conxian's organizational architecture aligns with **[Conxian Business Issue #1317](https://github.com/Conxian/conxian-business/issues/1317)** (*CXIP?:: Conxian org wide upgrade and refinement proposal*), driving:
+* Complete auditability across all 12 core ecosystem repositories.
+* Enforced legal domain separation between `conxian.org` (Protocol Surface) and `conxian-labs.com` (Corporate Surface).
+* Pure hardware enclave (TEE) execution boundaries and memory-safe Rust primitives.
+* Native ISO 20022 XML to Bitcoin Layer 1 DLC settlement mappings with OData v4 JSON query callbacks.

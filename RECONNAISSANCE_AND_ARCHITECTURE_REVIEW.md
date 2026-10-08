@@ -246,3 +246,33 @@ Cross-referencing codebase state against open organization issues reveals 6 crit
 
 ---
 *End of Master Reconnaissance & Architecture Review.*
+
+---
+
+## CXIP PROPOSAL #1317: ORG-WIDE UPGRADE & REFINEMENT EVALUATION
+
+### Overview & Objectives
+As proposed in **[Conxian Business Issue #1317](https://github.com/Conxian/conxian-business/issues/1317)** (*CXIP?:: Conxian org wide upgrade and refinement proposal*), the Conxian ecosystem undergoes a comprehensive organizational upgrade and architectural alignment across all 12 core repositories.
+
+### Key CXIP Refinement Pillars
+1. **Strict Legal & Architectural Firewalling:** Absolute segregation between the open-source protocol developer portal (`conxian.org`) and corporate operations (`conxian-labs.com`).
+2. **Zero Non-Sovereign Cruft Policy:** Complete purge of legacy EVM, Ethereum, Solana, Cosmos, and public DeFi dependencies across all crates and packages.
+3. **Hardware Enclave Execution Standard:** Mandatory execution within Trusted Execution Environments (TEEs - AWS Nitro, Intel SGX, AMD SEV) verified by remote attestation and Hardware Enclave License Tokens (HELT).
+4. **Standardized Financial Messaging:** Strict mapping from ISO 20022 XML payment instructions (`pacs.008`, `pacs.009`, `camt.053`) to native Bitcoin L1 Discrete Log Contracts (DLCs) with OData v4 JSON query callbacks.
+
+### Org-Wide Completed Work Matrix
+
+| Repository | Scope & Completed Work | Status |
+| :--- | :--- | :--- |
+| **`lib-conxian-core`** | Implemented `no_std` Rust cryptographic primitives, BIP-340/341/342 MuSig2 Schnorr multi-sigs, and DLC state models. | Complete Baseline |
+| **`conxian-nexus`** | Built Bitcoin L1 anchor transaction builder, DLC settlement engine, and LMDB state proof storage solver. | Complete Baseline |
+| **`conxian-gateway`** | Developed ISO 20022 XML parsers (`pacs.008`, `camt.053`) and OData v4 query callback engine. | Complete Baseline |
+| **`conxius-enclave-sdk`** | Engineered C/Rust TEE drivers for AWS Nitro Enclaves, Intel SGX2, AMD SEV-SNP, and enclave-isolated MuSig2 signing. | Complete Baseline |
+| **`conxius-platform`** | Standardized K8s/Docker stateless container deployment manifests and enclave runtime parameter validators. | Complete Baseline |
+| **`conxian_market`** | Created zero-knowledge audit proof generation engine and real-time transparency status portal. | Complete Baseline |
+| **`conxian-business`** | Developed B2B enterprise client portal (`bos.conxian-labs.com`), HELT licensing backend, and agreement management. | Complete Baseline |
+| **`conxian-labs-site`** | Built Next.js corporate surface site for Conxian Labs Inc. (`www.conxian-labs.com`). | Complete Baseline |
+| **`conxian-org-site`** | Deployed Astro v7 + Starlight developer docs portal and protocol status surface (`conxian.org`) with hardened NGINX/Caddy configs. | Complete / Active |
+| **`.github`** | Established org-wide Gitleaks CLI secret scanning workflows, CODEOWNERS policies, and security governance rules. | Complete Baseline |
+| **`conxian-cli`** | Defined pre-flight hardware enclave diagnostic tool specification and host environment verification commands. | Spec / Implementation |
+| **`conxian-spec`** | Formulated canonical JSON Schemas and Protobuf specifications for ISO 20022 to Bitcoin DLC message translation. | Spec / Implementation |
