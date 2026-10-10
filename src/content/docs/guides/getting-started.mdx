@@ -1,72 +1,25 @@
 ---
 title: Getting Started
-description: Developer guide for connecting to the Conxian Banking Gateway or utilizing the Enclave SDK.
+description: How to evaluate and work with the Conxian public repositories.
 ---
 
-Welcome to the **Conxian Developer Portal**. This guide provides a walkthrough for developers connecting to the `conxian-gateway` (ISO 20022 banking integration) or utilizing the `conxius-enclave-sdk` (hardware enclave drivers and MuSig2 signing).
+## Start with the source repositories
 
----
+Conxian.org is a documentation surface, not a hosted gateway or custody service. Begin with the [Repository Status Matrix](/ecosystem/status/) and open the repository that matches your task.
 
-## 1. Connecting to the Banking Gateway (`gateway.conxian.org`)
+- [`conxian-gateway`](https://github.com/Conxian/conxian-gateway) — institutional integration and compliance middleware.
+- [`conxian-nexus`](https://github.com/Conxian/conxian-nexus) — state, proof, synchronization, and telemetry infrastructure.
+- [`conxius-enclave-sdk`](https://github.com/Conxian/conxius-enclave-sdk) — enclave, signing, and attestation abstractions.
+- [`conxius-platform`](https://github.com/Conxian/conxius-platform) — local stack composition and developer orchestration.
+- [`lib-conxian-core`](https://github.com/Conxian/lib-conxian-core) — shared serialization, cryptographic, and state primitives.
+- [`conxius-wallet`](https://github.com/Conxian/conxius-wallet) — offline-first wallet and signing client with user-controlled keys.
 
-The **ISO 20022 Banking Gateway** normalizes financial XML messages (`pacs.008`, `pacs.009`, `camt.053`) into structured OData v4 JSON callback streams.
+## Evaluate claims conservatively
 
-### Prerequisites
-- Active container instance of `conxian-gateway` from `platform.conxian.org`.
-- Access to client TLS certificates or enclave attestation key pairs.
+Before integrating a capability, check the repository README, release evidence, tests, and the maturity/claim-state row in the portfolio doctrine. `Implemented` means code or configuration exists; it does not by itself mean verified production readiness. `Target-state` means intended architecture or roadmap.
 
-### Basic OData v4 Query Example
+## Boundary rules
 
-```bash
-curl -X GET "https://gateway.conxian.org/odata/v4/Transactions?\$filter=Status eq 'Settled'" \
-  -H "Accept: application/json" \
-  -H "Authorization: Bearer <YOUR_ATTESTATION_TOKEN>"
-```
+Conxian-Labs is a non-custodial builder/operator. Users retain control of wallet keys, while protocol or DAO state follows contract- or governance-defined rules. Do not send secrets, regulated data, or production credentials to this documentation site.
 
-### Normalizing a `pacs.008` XML Payload
-
-```bash
-curl -X POST "https://gateway.conxian.org/api/v1/normalize/pacs008" \
-  -H "Content-Type: application/xml" \
-  --data-binary @pacs008_sample.xml
-```
-
----
-
-## 2. Utilizing the Hardware Enclave SDK (`sdk.conxian.org`)
-
-The **Hardware Enclave SDK** (`conxius-enclave-sdk`) exposes C and Rust bindings to manage cryptographic signing inside Trusted Execution Environments (TEEs) such as AWS Nitro Enclaves, Intel SGX, and AMD SEV.
-
-### Rust SDK Initialization
-
-Add `conxius-enclave-sdk` to your `Cargo.toml`:
-
-```toml
-[dependencies]
-conxius-enclave-sdk = { git = "https://github.com/Conxian/conxius-enclave-sdk", branch = "main" }
-```
-
-### MuSig2 Signing Example inside Enclave
-
-```rust
-use conxius_enclave_sdk::musig2::{EnclaveSigner, KeyAggContext};
-
-fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // Initialize enclave security context
-    let signer = EnclaveSigner::initialize_nitro_context()?;
-
-    // Aggregation of public keys for Schnorr multi-sig (BIP-340)
-    let pubkeys = vec![/* list of public keys */];
-    let key_agg = KeyAggContext::new(&pubkeys)?;
-
-    println!("Enclave initialized with aggregated key: {:?}", key_agg.aggregated_pubkey());
-    Ok(())
-}
-```
-
----
-
-## Next Steps
-
-- Explore the [Repository Matrix](/ecosystem/status/) for repo baselines.
-- Review subsystem references for [nexus.conxian.org](/docs/nexus/) and [platform.conxian.org](/docs/platform/).
+For corporate, legal, or business operations, use the appropriate Conxian-Labs surface rather than treating this developer portal as an operations console.

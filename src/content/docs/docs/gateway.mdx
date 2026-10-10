@@ -1,44 +1,16 @@
 ---
 title: conxian-gateway
-description: ISO 20022 Banking Gateway (gateway.conxian.org) - XML message normalizer and OData v4 callback engine.
+description: Institutional integration and compliance middleware for routing and verification.
 ---
 
-## Overview
+## Role
 
-`conxian-gateway` serves as the high-throughput bridge connecting legacy interbank messaging systems (SWIFT / FedNow / TIPS) to Bitcoin L1/L3 settlement primitives.
+`conxian-gateway` is the primary strategic middleware repository for institutional integration, routing, aggregation, and compliance verification. It is currently classified as **Beta** with an **Implemented** claim state in the canonical portfolio doctrine.
 
-* **Target Subdomain:** `gateway.conxian.org`
-* **Supported Message Formats:** `pacs.008.001.10` (Financial Institutional Customer Credit Transfer), `pacs.009` (Financial Institution Credit Transfer), `camt.053` (Bank-to-Customer Statement).
-* **Callback Architecture:** OData v4 JSON query callback interface for automated enterprise core banking reconciliation.
+This page is a technical reference pointer, not a hosted API contract. Use the repository for current interfaces, configuration, release evidence, and deployment instructions.
 
----
+[Open the `conxian-gateway` repository](https://github.com/Conxian/conxian-gateway)
 
-## Technical Specifications
+## Boundary
 
-### ISO 20022 XML Normalization Pipeline
-
-```
- +-------------------------+      +-------------------------+      +-------------------------+
- | Incoming ISO 20022 XML  | ---> |   conxian-gateway XML   | ---> |   OData v4 Normalized   |
- | (pacs.008 Payment Wire) |      | Parser & Security Check |      | JSON Settlement Payload |
- +-------------------------+      +-------------------------+      +-------------------------+
-```
-
-### OData v4 Query Callback Example
-
-`POST /odata/v4/Settlements`
-
-```json
-{
-  "@odata.context": "https://gateway.conxian.org/odata/v4/$metadata#Settlements/$entity",
-  "SettlementId": "stl_20260916_994812",
-  "PaymentInstructionId": "ISO20022_PACS008_INSTR_00192841",
-  "DebtorAgentBIC": "BNKUS33XXX",
-  "CreditorAgentBIC": "BNKGB22XXX",
-  "SettlementAmount": 500000.00,
-  "SettlementCurrency": "USD",
-  "BitcoinAnchorTxId": "4f8a12b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1",
-  "Musig2Status": "AGGREGATED_SIGNED",
-  "Timestamp": "2026-09-16T12:00:00Z"
-}
-```
+The gateway is infrastructure for integrations and verification. It does not imply company custody, discretionary control of funds, or a live public banking service. Regulated partners remain responsible for regulated custody and operational controls.

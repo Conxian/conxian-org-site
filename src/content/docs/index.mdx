@@ -1,9 +1,9 @@
 ---
-title: Conxian Sovereign Infrastructure
-description: Gateway to Conxian sovereign infrastructure, Bitcoin Layer 1 primitives, and enterprise integrations.
+title: Conxian Protocol Surface
+description: Public-safe documentation for Conxian protocol infrastructure, Conxius developer tooling, and ecosystem evidence.
 template: splash
 hero:
-  tagline: Hardware-Secured, Memory-Safe Sovereign Infrastructure for Bitcoin L1 Primitives, MuSig2, and DLC Settlement.
+  tagline: Public-safe protocol and developer documentation for Conxian infrastructure.
   actions:
     - text: Getting Started
       link: /guides/getting-started/
@@ -17,40 +17,44 @@ hero:
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-## Sovereign Protocol Architecture
+## Technical surface
 
-Conxian provides enterprise-grade, memory-safe software primitives and stateless container images for execution strictly within private cloud environments and physical hardware enclaves (AWS Nitro, Intel SGX, AMD SEV).
+This site is the public documentation and distribution surface for the Conxian ecosystem. It documents protocol, integration, state/proof, client, and developer-tooling boundaries without presenting Conxian-Labs as a custodian, market participant, fund manager, or user-data business.
 
-### Cross-Repository Ecosystem Subdomains
+Repository maturity and claim state are evidence-scoped. A repository link is not a guarantee that a hosted service or custom domain is currently available.
 
-Explore our core subdomains and cross-repository services across the Conxian ecosystem:
+### Ecosystem repositories
 
 <CardGrid>
-	<Card title="Main Developer Portal" icon="open-book">
-		[conxian.org](https://conxian.org) - Central technical documentation, developer portal, and public status surface.
+	<Card title="Gateway middleware" icon="document">
+		[`conxian-gateway`](https://github.com/Conxian/conxian-gateway) provides institutional routing, aggregation, and compliance middleware. It is a primary strategic repository with beta maturity.
 	</Card>
-	<Card title="Bitcoin DLC Settlement Engine" icon="setting">
-		[conxian-nexus repository](https://github.com/Conxian/conxian-nexus) - Anchor builder, DLC state solver, and Bitcoin L1/L3 trustless settlement engine. The custom domain is not deployed yet.
+	<Card title="Nexus state infrastructure" icon="setting">
+		[`conxian-nexus`](https://github.com/Conxian/conxian-nexus) provides state, proof, synchronization, and telemetry infrastructure for integrators. It is a primary strategic repository with beta maturity.
 	</Card>
-	<Card title="ISO 20022 Banking Gateway" icon="document">
-		[conxian-gateway repository](https://github.com/Conxian/conxian-gateway) - ISO 20022 XML normalizer (pacs.008, camt.053) and OData v4 callback engine. The custom domain is not deployed yet.
+	<Card title="Conxius tooling" icon="laptop">
+		[`conxius-enclave-sdk`](https://github.com/Conxian/conxius-enclave-sdk) provides enclave, signing, and attestation abstractions. [`conxius-platform`](https://github.com/Conxian/conxius-platform) provides local stack composition and developer orchestration.
 	</Card>
-	<Card title="Hardware Enclave SDK" icon="laptop">
-		[conxius-enclave-sdk repository](https://github.com/Conxian/conxius-enclave-sdk) - C / Rust enclave drivers for AWS Nitro, Intel SGX, AMD SEV, and MuSig2 signing. The custom domain is not deployed yet.
+	<Card title="Shared primitives" icon="puzzle">
+		[`lib-conxian-core`](https://github.com/Conxian/lib-conxian-core) provides shared serialization, cryptographic, and state primitives for ecosystem developers.
 	</Card>
-	<Card title="Container Orchestration Platform" icon="puzzle">
-		[conxius-platform repository](https://github.com/Conxian/conxius-platform) - Stateless container deployment manifests, enclave parameter validation, and runners. The custom domain is not deployed yet.
+	<Card title="Wallet and client access" icon="star">
+		[`conxius-wallet`](https://github.com/Conxian/conxius-wallet) is an offline-first wallet and signing client that keeps keys under user control.
 	</Card>
-	<Card title="Zero-Knowledge Transparency Feed" icon="star">
-		[conxian_market repository](https://github.com/Conxian/conxian_market) - Cryptographic transparency proofs, auditability reporting, and state verification. The custom domain is not deployed yet.
+	<Card title="Experimental marketplace surface" icon="open-book">
+		[`conxian_market`](https://github.com/Conxian/conxian_market) is a research/experimental AI Marketplace and Agentic Commerce surface. It is target-state, not a claim of a live market or production settlement service.
 	</Card>
 </CardGrid>
 
----
+## Boundary vocabulary
 
-## Core Infrastructure Pillars
+- **Conxian-Labs** is the non-custodial builder/operator company for software and infrastructure.
+- **Conxian** is the protocol and enterprise-infrastructure layer.
+- **Conxius** is the client, access, and developer-tooling layer.
+- Protocol escrow, settlement, treasury, or yield language refers to contract-, DAO-, or participant-defined state—not company custody or discretionary fund control.
 
-1. **Bitcoin L1 & L3 Primitives:** Native MuSig2 Schnorr multi-signatures (BIP-340/341/342) and Discrete Log Contracts (DLCs) for trustless financial settlement.
-2. **ISO 20022 Legacy Banking:** Native XML message parsers (`pacs.008`, `pacs.009`, `camt.053`) with OData v4 JSON query callback interfaces.
-3. **Hardware Enclaves (TEE):** Memory-safe Rust abstractions executing inside isolated hardware enclaves with zero cloud provider runtime trust.
-4. **Zero-Knowledge Transparency:** Cryptographic settlement auditability feeds without exposure of underlying financial transaction data.
+See the [Repository Status Matrix](/ecosystem/status/) for the current evidence-scoped portfolio view.
+
+## Documentation status
+
+This site is a public-safe reference surface. Claims marked as implemented, verified, target-state, or deprecated should be read with their repository evidence and maturity labels; the site does not upgrade those claims.
