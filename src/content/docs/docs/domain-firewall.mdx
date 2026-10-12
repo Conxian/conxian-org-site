@@ -1,32 +1,50 @@
 ---
-title: Domain Separation Firewall Architecture
-description: Technical specification for strict legal, operational, and domain isolation between conxian.org and conxian-labs.com.
+title: Domain Separation Firewall
+description: Strict legal and architectural firewall routing specifications for conxian.org and conxian-labs.com.
 ---
 
-## Executive Summary
+## Legal & Architectural Domain Firewall
 
-To maintain regulatory compliance, non-custodial protocol boundaries, and operational security, the **Conxian Ecosystem** strictly isolates open-source protocol services (`conxian.org`) from corporate operations, billing, and governance infrastructure (`conxian-labs.com`).
+Conxian maintains a zero-trust legal and network firewall separating the open-source **Protocol & Developer Surface** (`conxian.org`) from the corporate **Business & Operations Surface** (`conxian-labs.com`).
 
----
+```
+                              +-------------------------------------------+
+                              |         ENTERPRISE CLIENT INGRESS          |
+                              +--------------------+----------------------+
+                                                   |
+                         +-------------------------+-------------------------+
+                         |                                                   |
+                         v                                                   v
+        +---------------------------------+                 +---------------------------------+
+        |  PROTOCOL & DEV SURFACE         |                 |  CORPORATE & GOVERNANCE SURFACE |
+        |  (conxian.org)                  |                 |  (conxian-labs.com)             |
+        |  Pure Tech Distribution & Docs  |                 |  B2B Sales, Legal, Operations   |
+        +----------------+----------------+                 +----------------+----------------+
+                         |                                                   |
+        +----------------+----------------+                 +----------------+----------------+
+        | - nexus.conxian.org             |                 | - bos.conxian-labs.com          |
+        | - gateway.conxian.org           |                 | - www.conxian-labs.com          |
+        | - sdk.conxian.org               |                 +---------------------------------+
+        | - platform.conxian.org          |
+        | - market.conxian.org            |
+        +---------------------------------+
+```
 
-## Architectural Isolation Matrix
+### Complete Routing Matrix
 
-| Surface | FQDN / Domain | Technical Scope | Hosting / Storage Isolation |
+| Subdomain FQDN | Surface | Primary Service | Allowed CORS Origins |
 | :--- | :--- | :--- | :--- |
-| **Main Developer Portal** | `conxian.org` | Open-source developer docs, status portal & technical distribution hub | Isolated Vercel / Edge Static CDN |
-| **Bitcoin DLC Engine** | `nexus.conxian.org` | Anchor builder, DLC state solver, and Bitcoin L1/L3 trustless settlement engine | Isolated Kubernetes Worker Nodes |
-| **ISO 20022 Gateway** | `gateway.conxian.org` | Banking XML normalizer (`pacs.008`, `camt.053`) and OData v4 callback engine | Private VPC / Enclave Proxies |
-| **Enclave Hardware SDK** | `sdk.conxian.org` | C/Rust drivers for AWS Nitro, Intel SGX, AMD SEV, and MuSig2 signing | Isolated GitHub Release Buckets |
-| **Container Orchestration** | `platform.conxian.org` | Deployment manifests, enclave parameter validation, and runners | Private Cloud Registries |
-| **Zero-Knowledge Feed** | `market.conxian.org` | ZK settlement proofs, cryptographic auditability, and state verification | Public Distributed Telemetry Nodes |
-| **Corporate Sales & Billing** | `www.conxian-labs.com` | Enterprise commercial support, client invoicing, and sales CRM | Separate Corporate Infrastructure |
-| **Business Operations OS** | `bos.conxian-labs.com` | Internal ERP, HR, financial accounting, and compliance vault | Strictly Authenticated Corporate Subnet |
+| `nexus.conxian.org` | Protocol (`conxian.org`) | Bitcoin L1/L3 DLC engine & state solver | `https://conxian.org`, `https://market.conxian.org` |
+| `gateway.conxian.org` | Protocol (`conxian.org`) | ISO 20022 XML normalizer & OData v4 callbacks | `https://conxian.org`, `https://platform.conxian.org` |
+| `sdk.conxian.org` | Protocol (`conxian.org`) | Hardware Enclave TEE SDK & MuSig2 drivers | `https://conxian.org` |
+| `platform.conxian.org` | Protocol (`conxian.org`) | Container orchestration & deployment specs | `https://conxian.org` |
+| `market.conxian.org` | Protocol (`conxian.org`) | Zero-knowledge auditability & status feed | `https://conxian.org` |
+| `bos.conxian-labs.com` | Corporate (`conxian-labs.com`) | B2B client portal & licensing backend | `https://www.conxian-labs.com` |
+| `www.conxian-labs.com` | Corporate (`conxian-labs.com`) | Corporate marketing & legal portal | `https://conxian-labs.com` |
 
 ---
 
-## Technical Enforcement & Security Directives
-
-Conxian maintains a zero-trust legal and technical firewall:
+## Firewall Enforcement Principles
 
 1. **No Shared Cookies or State:** `conxian.org` subdomains never issue or read authentication cookies from `conxian-labs.com`.
 2. **CORS Restrictions:** Strict `Access-Control-Allow-Origin` headers prevent unauthorized cross-origin data leaks between corporate marketing pages and protocol status endpoints.
