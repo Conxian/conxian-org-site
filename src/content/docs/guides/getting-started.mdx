@@ -14,6 +14,7 @@ The **ISO 20022 Banking Gateway** normalizes financial XML messages (`pacs.008`,
 ### Prerequisites
 - Active container instance of `conxian-gateway` from `platform.conxian.org`.
 - Access to client TLS certificates or enclave attestation key pairs.
+- Review our [Environment Setup & Routing Strategy](/docs/environment-setup/) for configuring FQDN subdomains (`gateway.conxian.org`).
 
 ### Basic OData v4 Query Example
 
@@ -68,5 +69,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 ## Next Steps
 
+- Review the [Environment Setup & Routing Guide](/docs/environment-setup/).
 - Explore the [Repository Matrix](/ecosystem/status/) for repo baselines.
-- Review subsystem references for [nexus.conxian.org](/docs/nexus/) and [platform.conxian.org](/docs/platform/).
+- Review subsystem references for [nexus.conxian.org](/docs/nexus/), [gateway.conxian.org](/docs/gateway/), and [platform.conxian.org](/docs/platform/).
