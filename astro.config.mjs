@@ -6,7 +6,7 @@ import vercel from '@astrojs/vercel';
 
 export default defineConfig({
 	site: 'https://conxian.org',
-	adapter: vercel({
+	adapter: process.env.DEPLOY_TARGET === 'static' ? undefined : vercel({
 		webAnalytics: { enabled: true }
 	}),
 	vite: {

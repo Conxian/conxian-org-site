@@ -3,24 +3,24 @@
 # ==============================================================================
 
 # Stage 1: Build Environment
-FROM node:22-alpine AS builder
+FROM node:24-alpine AS builder
 
 WORKDIR /app
 
 # Enable pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@10.28.0 --activate
 
 # Copy dependency definitions
-COPY package.json pnpm-lock.yaml* ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 
 # Install dependencies deterministically
-RUN pnpm install --frozen-lockfile || pnpm install
+RUN pnpm install --frozen-lockfile
 
 # Copy application source code
 COPY . .
 
 # Build Astro static production assets
-RUN pnpm build
+RUN DEPLOY_TARGET=static pnpm build
 
 # Stage 2: Production Unprivileged Web Server
 FROM nginx:1.27-alpine AS runner
