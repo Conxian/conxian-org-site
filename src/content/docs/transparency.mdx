@@ -1,40 +1,26 @@
 ---
 title: Auditability & Transparency
-description: Zero-knowledge settlement proofs, cryptographic auditability, and transparency surface powered by market.conxian.org.
+description: Public-safe guidance for evaluating auditability, evidence, and protocol boundaries.
 ---
 
-## Cryptographic Settlement Transparency
+## Evidence before claims
 
-Conxian provides real-time cryptographic auditability for enterprise settlements without exposing sensitive counterparty information, transaction values, or internal banking records.
+Transparency means making the boundary and supporting evidence clear. This site does not assert a live proof feed, production settlement service, solvency guarantee, or hosted attestation registry unless the relevant repository and deployment provide current evidence.
 
-### Zero-Knowledge Proof Infrastructure
+`conxian_market` is classified by the canonical portfolio doctrine as a **research/experimental**, **incubating**, **target-state** supporting surface for AI Marketplace and Agentic Commerce work. It must not be described as a live market, a company-controlled fund system, or a verified production audit service.
 
-The `conxian_market` subsystem (`market.conxian.org`) generates zero-knowledge proofs (ZKPs) verifying that:
-1. **Solvency Verification:** Every Discrete Log Contract (DLC) collateral locked on Bitcoin Layer 1 equals or exceeds the total liquidity requested in normalized ISO 20022 `pacs.008` messages.
-2. **Attestation Validity:** The executing hardware enclave (AWS Nitro / Intel SGX / AMD SEV) was running an unaltered, cryptographically signed Conxian image at the exact timestamp of execution.
-3. **Execution Integrity:** MuSig2 key aggregation and partial signatures strictly followed BIP-340/341/342 specifications without nonce reuse.
+## What to verify
 
----
+When evaluating a repository or deployment, identify:
 
-## Live Audit Feeds & Subdomain Integration
+1. The exact repository and commit or release.
+2. The stated maturity and claim state.
+3. The boundary enforced by the software.
+4. Named tests, audits, environments, or release evidence supporting any stronger claim.
+5. Whether the behavior belongs to a user, contract, DAO, or regulated partner rather than Conxian-Labs custody.
 
-Enterprise auditors and clients monitor settlement proofs via the following endpoints:
+## Protocol and custody boundary
 
-* **Transparency Feed:** `https://market.conxian.org/api/v1/proofs/latest`
-* **Enclave Attestation Registry:** `https://market.conxian.org/api/v1/attestations/valid`
-* **Bitcoin L1 Anchor Proofs:** `https://nexus.conxian.org/api/v1/anchors/verify`
+Contract escrow, settlement, treasury, or yield language describes contract-, DAO-, or participant-defined state transitions. It does not establish Conxian-Labs custody, discretionary fund control, market operation, or a managed-investment promise.
 
-### Zero-Knowledge Proof Schema
-
-```json
-{
-  "proof_id": "zkp_9f8a7b6c5d4e3f2a1b",
-  "timestamp_utc": "2026-09-16T12:00:00Z",
-  "settlement_engine": "conxian-nexus-v1.4.2",
-  "enclave_measurement_pcr0": "a1b2c3d4e5f67890123456789abcdef0123456789abcdef0123456789abcdef0",
-  "iso20022_message_type": "pacs.008.001.10",
-  "btc_dlc_contract_id": "dlc_00294810293810293810",
-  "solvency_status": "PROVEN_VALID",
-  "musig2_signature_verified": true
-}
-```
+For the authoritative role and claim taxonomy, see the [Portfolio Doctrine Register](https://github.com/Conxian/conxian-business/blob/main/docs/PORTFOLIO_DOCTRINE_REGISTER.md).
