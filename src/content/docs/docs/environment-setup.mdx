@@ -1,0 +1,178 @@
+---
+title: Setting Up a New Environment for All Subsystems
+description: Architectural review and step-by-step setup guide for Conxian subsystems comparing Subdomain (FQDN) vs Subdirectory routing options.
+---
+
+## Overview
+
+When deploying a new environment for the Conxian ecosystem (`nexus`, `gateway`, `market`, `sdk`, `platform`, `cli`, etc.), infrastructure engineers must select a routing architecture to expose subsystem services.
+
+This guide reviews the two primary routing approaches:
+1. **FQDN Subdomains:** `nexus.conxian.org`, `gateway.conxian.org`, `market.conxian.org`, `sdk.conxian.org`, `platform.conxian.org`
+2. **Subdirectory Paths:** `https://www.conxian.org/nexus`, `https://www.conxian.org/gateway`, `https://www.conxian.org/market`, etc.
+
+---
+
+## Comparative Architectural Analysis
+
+| Evaluation Criterion | Subdomain Approach (`*.conxian.org`) | Subdirectory Path Approach (`conxian.org/*`) |
+| :--- | :--- | :--- |
+| **ISO 20022 mTLS Termination** | **Optimal:** Dedicated TLS listener for client certificates on `gateway.conxian.org`. | **Problematic:** Requires path-based mTLS filtering on the primary edge gateway. |
+| **TEE Enclave Attestation** | **Optimal:** Isolated endpoint boundaries for AWS Nitro / Intel SGX remote attestations. | **Risky:** Shared origin increases attack surface for attestation token leaks. |
+| **Legal & Security Firewall** | **Optimal:** Zero-trust origin boundary with strict CORS (`Access-Control-Allow-Origin`). | **Sub-optimal:** Combined origin mixes static docs with execution API surfaces. |
+| **Independent Scaling & DNS** | **Optimal:** Independent CNAME/A records pointing directly to dedicated cluster endpoints. | **Coupled:** Single monolithic load balancer routing path prefixes. |
+| **Cookie & Storage Isolation** | **Optimal:** Complete session cookie and `localStorage` state isolation per subsystem. | **Shared:** Risk of cross-subsystem token contamination on a shared domain origin. |
+| **CXIP #1317 Compliance** | **100% Compliant:** Enforces strict domain separation required by Conxian governance. | **Non-Compliant:** Violates firewall routing directives. |
+
+---
+
+## Architectural Decision: FQDN Subdomain Approach (`*.conxian.org`)
+
+### Selection & Rationale
+
+**Conxian adopts the FQDN Subdomain Approach (`*.conxian.org`) as the standard across all environments (Development, Staging, and Production).**
+
+Key reasons for this decision include:
+1. **Financial Messaging Security (ISO 20022):** Interbank SWIFT/FedNow integrations on `conxian-gateway` require dedicated Mutual TLS (mTLS) handshake termination on port 8443 / 443, which is cleanest with dedicated FQDNs.
+2. **Hardware Enclave Boundary (TEEs):** `conxius-enclave-sdk` generates hardware attestation documents (`PCR0/1/2`) that bind to dedicated endpoint hostnames (`sdk.conxian.org`).
+3. **Strict Domain Separation (CXIP #1317):** Prevents state leaks between open-source protocol surfaces (`conxian.org`) and corporate operations (`conxian-labs.com`).
+
+---
+
+## Environment Setup Instructions
+
+### 1. Unified Subsystem Environment Configuration (`.env`)
+
+Configure your environment file (e.g. `/etc/conxian/.env`) with dedicated subsystem endpoints:
+
+```bash
+# ------------------------------------------------------------------------------
+# GLOBAL PROTOCOL ENVIRONMENT CONFIGURATION
+# ------------------------------------------------------------------------------
+CONXIAN_ENV=production                  # Options: development | staging | production
+CONXIAN_BASE_DOMAIN=conxian.org
+
+# Subsystem FQDN Endpoints
+NEXUS_ENDPOINT=https://nexus.conxian.org
+GATEWAY_ENDPOINT=https://gateway.conxian.org
+SDK_ENDPOINT=https://sdk.conxian.org
+PLATFORM_ENDPOINT=https://platform.conxian.org
+MARKET_ENDPOINT=https://market.conxian.org
+
+# ------------------------------------------------------------------------------
+# SUBSYSTEM 1: BITCOIN SETTLEMENT ENGINE (NEXUS)
+# ------------------------------------------------------------------------------
+NEXUS_LISTEN_PORT=8080
+BITCOIN_NETWORK=mainnet
+BITCOIN_RPC_URL=https://node.internal.bank.com:8332
+
+# ------------------------------------------------------------------------------
+# SUBSYSTEM 2: ISO 20022 BANKING GATEWAY (GATEWAY)
+# ------------------------------------------------------------------------------
+GATEWAY_LISTEN_PORT=8443
+GATEWAY_MTLS_ENABLED=true
+GATEWAY_MTLS_CERT_PATH=/etc/conxian/certs/gateway_tls.crt
+
+# ------------------------------------------------------------------------------
+# SUBSYSTEM 3: HARDWARE ENCLAVE SDK (SDK)
+# ------------------------------------------------------------------------------
+TEE_PROVIDER=aws_nitro                   # Options: aws_nitro | intel_sgx | amd_sev | mock_dev
+SDK_LISTEN_PORT=9090
+
+# ------------------------------------------------------------------------------
+# SUBSYSTEM 4: TRANSPARENCY & AUDIT FEED (MARKET)
+# ------------------------------------------------------------------------------
+MARKET_LISTEN_PORT=3000
+MARKET_ZK_PROOF_GENERATE=true
+```
+
+---
+
+### 2. Reverse Proxy Deployment Configurations
+
+#### Option A: Caddy Automated TLS Setup (`Caddyfile`)
+
+```txt
+{
+    email admin@conxian.org
+}
+
+# Protocol Developer Docs Surface
+conxian.org, www.conxian.org {
+    root * /usr/share/caddy
+    file_server
+    try_files {path} {path}/ {path}/index.html /404.html
+}
+
+# Subsystem Subdomain Proxy Routes
+nexus.conxian.org {
+    reverse_proxy conxian_settlement_nexus:8080
+}
+
+gateway.conxian.org {
+    reverse_proxy conxian_iso20022_gateway:8443
+}
+
+sdk.conxian.org {
+    reverse_proxy conxius_enclave_sdk:9090
+}
+
+platform.conxian.org {
+    reverse_proxy conxius_platform_orchestration:8000
+}
+
+market.conxian.org {
+    reverse_proxy conxian_market_audit:3000
+}
+```
+
+#### Option B: NGINX Hardened Subdomain Reverse Proxy (`nginx.conf`)
+
+```nginx
+# Bitcoin DLC Engine: nexus.conxian.org
+server {
+    listen 443 ssl http2;
+    server_name nexus.conxian.org;
+
+    ssl_certificate /etc/letsencrypt/live/nexus.conxian.org/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/nexus.conxian.org/privkey.pem;
+
+    location / {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+# ISO 20022 Banking Gateway (mTLS Enabled): gateway.conxian.org
+server {
+    listen 8443 ssl http2;
+    server_name gateway.conxian.org;
+
+    ssl_certificate /etc/conxian/certs/gateway_server.crt;
+    ssl_certificate_key /etc/conxian/certs/gateway_server.key;
+    ssl_client_certificate /etc/conxian/certs/client_ca.crt;
+    ssl_verify_client optional;
+
+    location / {
+        proxy_pass http://127.0.0.1:8443;
+        proxy_set_header X-Client-Verify $ssl_client_verify;
+        proxy_set_header X-Client-DN $ssl_client_s_dn;
+    }
+}
+```
+
+---
+
+## Local Development Override (Subdirectory Testing)
+
+For local offline development or single-host testing without DNS wildcard subdomains, `conxian-cli` supports path-based local forwarding via Docker Compose:
+
+```bash
+# Execute local dev environment setup with path overrides
+conxian-cli dev start --path-routing-override
+```
+
+> **Note:** Path-based routing override is restricted strictly to local offline development (`localhost`). All deployed staging and production instances must use FQDN subdomains (`*.conxian.org`).

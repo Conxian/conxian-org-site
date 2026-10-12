@@ -51,6 +51,7 @@ export default defineConfig({
 					label: 'Architecture & Governance',
 					items: [
 						{ label: 'Master Architecture Review', slug: 'docs/architecture' },
+						{ label: 'Environment Setup & Routing', slug: 'docs/environment-setup' },
 						{ label: 'Domain Separation Firewall', slug: 'docs/domain-firewall' },
 						{ label: 'Unified CLI Enclave Installer', slug: 'docs/cli-installer' },
 					],
