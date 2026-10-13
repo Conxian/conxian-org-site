@@ -122,3 +122,21 @@ Conxian's organizational architecture aligns with **[Conxian Business Issue #131
 * Enforced legal domain separation between `conxian.org` (Protocol Surface) and `conxian-labs.com` (Corporate Surface).
 * Pure hardware enclave (TEE) execution boundaries and memory-safe Rust primitives.
 * Native ISO 20022 XML to Bitcoin Layer 1 DLC settlement mappings with OData v4 JSON query callbacks.
+
+
+## Reproducible deployment builds
+
+Use Node 24 and pnpm 10.28.0, as pinned in package.json and CI. Install with
+`pnpm install --frozen-lockfile`; deployment must not regenerate the lockfile.
+The workspace permits dependency scripts only for esbuild and sharp and keeps
+strict dependency-build checking enabled, with a 24-hour minimum release age.
+Review new script requirements explicitly when dependencies change.
+
+`pnpm build` retains the Vercel adapter. For the Render Docker/Nginx deployment,
+`DEPLOY_TARGET=static pnpm build` emits static assets in `dist` without the Vercel
+adapter. CI builds both variants. Docker copies the workspace policy before the
+install and excludes local dependencies, generated output, and environment files.
+
+The October 13 repair was checked locally with a frozen install and both Astro
+build variants. Docker engine validation and a live Render redeployment remain
+separate release checks; a successful local build does not establish live status.
