@@ -1,0 +1,37 @@
+---
+title: Capability and signing evidence
+description: Verified inventory counts, public signing conformance, and operation qualification boundaries.
+---
+
+## Universal-chain scope
+
+Bitcoin L1 is the canonical trust and finality root. Conxian serves external chains, networks, layers, protocols, and assets without a native Conxian token or native staking incentive.
+
+## Inventory snapshot — 14 October 2026
+
+These are distinct inventories. They must not be added together or reported as live connection totals.
+
+| SDK or Core inventory | Verified count | What it establishes |
+| :--- | ---: | :--- |
+| SDK registered chain IDs | 42 | Registry identifiers |
+| SDK built-in unique chain/symbol assets | 52 | Built-in asset records |
+| SDK active runtime registry entries | 29 | Registry state, independently of provider health |
+| SDK non-test protocol modules | 43 | Source modules |
+| SDK capability evidence rows | 70 | Evidence catalog coverage |
+| Exact SDK to Core projections | 19 | Mapped identifiers; other aliases remain unresolved |
+| Core concrete chains / families | 48 / 17 | Core taxonomy |
+| SDK production-supported capability rows | 0 | No catalog row has satisfied the independent production gate |
+
+The [SDK support inventory](https://github.com/Conxian/conxius-enclave-sdk/blob/bcf39eea93fc47205a419bd3a963e4be5c861f67/docs/architecture/support-inventory.json), [capability evidence catalog](https://github.com/Conxian/conxius-enclave-sdk/blob/bcf39eea93fc47205a419bd3a963e4be5c861f67/docs/architecture/capability-evidence.json), and their validators provide reproducible source. Seventy evidence rows do not establish seventy connected providers or authorize signing. Qualified operations require exact chain, network, and operation identity with current producer evidence.
+
+## Public signing conformance
+
+The SDK includes a [public conformance artifact](https://github.com/Conxian/conxius-enclave-sdk/blob/bcf39eea93fc47205a419bd3a963e4be5c861f67/docs/architecture/public-signing-conformance-2026-10-14.json) and [verification script](https://github.com/Conxian/conxius-enclave-sdk/blob/bcf39eea93fc47205a419bd3a963e4be5c861f67/scripts/verify_public_signing_proof.py). Anyone can verify three P-256 signatures and tamper rejection without AWS credentials. The challenge is a non-release test.
+
+Those keys share one provider and account. The artifact does not establish independent custody, threshold enforcement, Bitcoin Schnorr support, release authorization, or qualified production signing. FROST/MuSig2 ceremonies, authenticated participant independence, hardware attestation, and independent review need separate evidence.
+
+## Hardware and deployment qualification
+
+Feature flags, chipset names, PKCS#11 mechanism lists, and provider metadata do not prove device provenance. See the [hardware driver qualification research](https://github.com/Conxian/conxius-enclave-sdk/blob/c99db7492c8fb46acd49a524a029b646503e8599/docs/architecture/HARDWARE_DRIVER_QUALIFICATION_2026_10_14.md) for Android StrongBox, HSM, Keystone, TPM, Nitro, SGX, SEV, and remote-signer boundaries. Device/driver versions, validated attestation roots, revocation, exact mechanism conformance, failure behavior, and independent review remain required.
+
+Gateway and Nexus discovery reports registration only, with unobserved health, no qualified operations, and no production-support claim. A successful site build, reachable health endpoint, or repository link does not qualify deployed signing or settlement.

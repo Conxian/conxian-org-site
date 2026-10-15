@@ -10,18 +10,17 @@ The official technical distribution, developer documentation, and public status 
 
 ## Technical Overview & Operating Philosophy
 
-Conxian is a pure **Deep-Tech B2B Infrastructure Vendor** specializing in hardware-secured, memory-safe, sovereign infrastructure for:
-1. **Bitcoin Layer 1 & Layer 3 Settlement:** Native MuSig2 Schnorr multi-signatures and Discrete Log Contracts (DLCs).
-2. **Legacy Banking Interoperability:** ISO 20022 XML financial messaging normalizers and OData v4 query callback interfaces.
-3. **AI Settlement Enclaves:** Hardware-enclave-bound automated settlement engines executing within Trusted Execution Environments (TEEs - AWS Nitro, Intel SGX, AMD SEV).
+This repository is the public protocol and developer documentation surface. Bitcoin L1 is the canonical trust/finality root for universal-chain infrastructure: external chains, networks, layers, and assets remain in scope. There is no native Conxian token, speculative tokenomics, or native staking incentive.
 
-> **Crucial Operating Policy:** Conxian does **NOT** operate public DeFi protocols, yield pools, token bridges, or public liquidity venues. We license stateless container images and hardware execution parameters for enterprise clients to run entirely within their own private cloud infrastructure or physical hardware enclaves.
+Public protocol contracts and developer references belong to `conxian.org`. Managed APIs, enterprise orchestration, SLAs, security auditing, and compliance integrations belong to `conxian-labs.com`. See [ARCHITECTURE.md](ARCHITECTURE.md) and the [capability evidence page](src/content/docs/docs/capability-evidence.mdx). Repository licenses remain authoritative; Nexus is BUSL-1.1 source available.
+
+Hardware drivers and cryptographic interfaces have different evidence levels. Registry counts, build success, or mechanism metadata cannot establish live integrations, hardware provenance, independent custody, or production qualification.
 
 ---
 
 ## Domain Separation Firewall Routing
 
-Conxian maintains a strict legal and architectural firewall separating the open-source **Protocol & Developer Surface** (`conxian.org`) from the corporate **Business & Operations Surface** (`conxian-labs.com`).
+Proposed subsystem domains below are architectural references, not deployment claims. Conxian maintains an architectural boundary separating the public **Protocol & Developer Surface** (`conxian.org`) from the corporate **Business & Operations Surface** (`conxian-labs.com`).
 
 | FQDN Subdomain | Surface Category | Service Description |
 | :--- | :--- | :--- |
@@ -57,7 +56,7 @@ conxian-org-site/
 │   └── content/
 │       └── docs/
 │           ├── index.mdx        # Homepage (Sovereign Technical Surface)
-│           ├── ecosystem.mdx    # Repository Status Matrix (12 core repos)
+│           ├── ecosystem.mdx    # Portfolio navigation and evidence boundaries
 │           ├── transparency.mdx # Auditability & ZK Proof summaries
 │           └── docs/            # Developer Hub API reference pages
 ├── RECONNAISSANCE_AND_ARCHITECTURE_REVIEW.md # Master 5-Phase Architecture Review
@@ -74,8 +73,8 @@ conxian-org-site/
 
 ### Prerequisites
 
-* Node.js v22.x
-* `pnpm` v10.x
+* Node.js v24.x
+* `pnpm` v10.28.0 (repository packageManager pin)
 
 ### Commands
 
