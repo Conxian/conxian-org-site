@@ -2,13 +2,9 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import tailwindcss from '@tailwindcss/vite';
-import vercel from '@astrojs/vercel';
 
 export default defineConfig({
 	site: 'https://conxian.org',
-	adapter: process.env.DEPLOY_TARGET === 'static' ? undefined : vercel({
-		webAnalytics: { enabled: true }
-	}),
 	vite: {
 		plugins: [tailwindcss()],
 	},

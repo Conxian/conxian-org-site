@@ -131,11 +131,11 @@ The workspace permits dependency scripts only for esbuild and sharp and keeps
 strict dependency-build checking enabled, with a 24-hour minimum release age.
 Review new script requirements explicitly when dependencies change.
 
-`pnpm build` retains the Vercel adapter. For the Render Docker/Nginx deployment,
-`DEPLOY_TARGET=static pnpm build` emits static assets in `dist` without the Vercel
-adapter. CI builds both variants. Docker copies the workspace policy before the
-install and excludes local dependencies, generated output, and environment files.
+The site builds to static output (`pnpm build` → `dist`). Production is served by
+the Render Docker/Nginx service (`conxian-org`, branch `main`, auto-deploy); the
+same `dist` output is produced by `pnpm build` in the image build. Docker copies
+the workspace policy before the install and excludes local dependencies, generated
+output, and environment files.
 
-The October 13 repair was checked locally with a frozen install and both Astro
-build variants. Docker engine validation and a live Render redeployment remain
-separate release checks; a successful local build does not establish live status.
+A successful build does not establish live status; confirm the rendered page on the
+deployed host before treating a content change as aligned.

@@ -20,7 +20,7 @@ RUN pnpm install --frozen-lockfile
 COPY . .
 
 # Build Astro static production assets
-RUN DEPLOY_TARGET=static pnpm build
+RUN pnpm build
 
 # Stage 2: Production Unprivileged Web Server
 FROM nginx:1.27-alpine AS runner

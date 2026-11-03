@@ -47,9 +47,6 @@ jobs:
       - name: Build Astro Protocol Portal
         run: pnpm build
 
-      - name: Build Render static output
-        run: DEPLOY_TARGET=static pnpm build
-
   gitleaks-secret-scan:
     name: Gitleaks Security Scan
     runs-on: ubuntu-latest
