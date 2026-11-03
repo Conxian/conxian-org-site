@@ -11,6 +11,10 @@ This guide reviews the two primary routing approaches:
 1. **FQDN Subdomains:** `nexus.conxian.org`, `gateway.conxian.org`, `market.conxian.org`, `sdk.conxian.org`, `platform.conxian.org`
 2. **Subdirectory Paths:** `https://www.conxian.org/nexus`, `https://www.conxian.org/gateway`, `https://www.conxian.org/market`, etc.
 
+:::note[Live routing status — 3 November 2026]
+The FQDN pattern is the mandated target architecture. Actual edge routing is a Cloudflare Worker (`conxian-proxy`) that Host-rewrites each subdomain to its origin. Currently routed: `gateway.conxian.org` and `nexus.conxian.org` (to their Render services), and `sdk.conxian.org`, `market.conxian.org`, `wallet.conxian.org`, `docs.conxian.org` (to the Labs site origin). `platform.conxian.org` is **not yet routed** (no DNS record or Worker route) and remains target-state. The subdomains below are architectural references, not a deployment guarantee.
+:::
+
 ---
 
 ## Comparative Architectural Analysis

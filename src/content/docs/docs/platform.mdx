@@ -7,9 +7,11 @@ description: Sovereign Container Orchestration (platform.conxian.org) - Docker c
 
 `conxius-platform` manages the deployment and execution of stateless Conxian container images inside client private cloud infrastructure.
 
-* **Target Subdomain:** `platform.conxian.org`
+* **Target Subdomain:** `platform.conxian.org` (target-state — no DNS record or edge route yet)
 * **Deployment Formats:** Helm Charts, Docker Compose, AWS Nitro Enclave CLI manifests.
 * **Health & Monitoring:** Prometheus metrics exporter endpoints (`/metrics`) and OpenTelemetry trace emitters.
+
+> **Illustrative only (3 November 2026):** the Compose manifest below is a target-state example. `registry.conxian.org` is not a live registry (no DNS record), and the `v1.4.2` tags are placeholders — current release versions are tracked in each repository's own manifest and release page.
 
 ---
 

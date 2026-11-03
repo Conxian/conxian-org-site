@@ -32,6 +32,8 @@ Conxian maintains a zero-trust legal and network firewall separating the open-so
 
 ### Complete Routing Matrix
 
+> **Live status (3 November 2026):** only `nexus.conxian.org`, `gateway.conxian.org`, `sdk.conxian.org`, `market.conxian.org`, and `docs.conxian.org` are currently routed at the edge (Cloudflare Worker `conxian-proxy`). `platform.conxian.org` is target-state — it has no DNS record or Worker route yet. `www.conxian.org` is served by Vercel.
+
 | Subdomain FQDN | Surface | Primary Service | Allowed CORS Origins |
 | :--- | :--- | :--- | :--- |
 | `nexus.conxian.org` | Protocol (`conxian.org`) | Bitcoin L1/L3 DLC engine & state solver | `https://conxian.org`, `https://market.conxian.org` |
