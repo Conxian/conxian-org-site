@@ -32,7 +32,7 @@ Conxian maintains a zero-trust legal and network firewall separating the open-so
 
 ### Complete Routing Matrix
 
-> **Live status (3 November 2026):** only `nexus.conxian.org`, `gateway.conxian.org`, `sdk.conxian.org`, `market.conxian.org`, and `docs.conxian.org` are currently routed at the edge (Cloudflare Worker `conxian-proxy`). `platform.conxian.org` is target-state — it has no DNS record or Worker route yet. `www.conxian.org` is served by Vercel.
+> **Live status (3 November 2026):** `conxian.org`, `www.conxian.org`, `nexus.conxian.org`, `gateway.conxian.org`, `sdk.conxian.org`, `market.conxian.org`, `docs.conxian.org`, and `wallet.conxian.org` are routed at the edge through the Cloudflare Worker `conxian-proxy` to Render origins. `platform.conxian.org` is target-state — it has no DNS record or Worker route yet. Vercel has been removed from the protocol surface.
 
 | Subdomain FQDN | Surface | Primary Service | Allowed CORS Origins |
 | :--- | :--- | :--- | :--- |
