@@ -10,12 +10,16 @@ export default defineConfig({
 	},
 	integrations: [
 		starlight({
-			title: 'Conxian Protocol Surface',
+			title: 'Conxian',
 			description: 'Public-safe documentation for Conxian protocol infrastructure, Conxius developer tooling, and ecosystem evidence.',
 			social: [
 				{ icon: 'github', label: 'GitHub', href: 'https://github.com/Conxian' },
 			],
 			customCss: ['./src/styles/tailwind.css'],
+			components: {
+				Header: './src/components/ConxianHeader.astro',
+				Footer: './src/components/ConxianFooter.astro',
+			},
 			sidebar: [
 				{
 					label: 'Overview',
