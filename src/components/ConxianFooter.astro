@@ -1,0 +1,33 @@
+---
+import DefaultFooter from '@astrojs/starlight/components/Footer.astro';
+const isHome = Astro.url.pathname === '/';
+---
+{isHome ? (
+<footer class="cx-global-footer">
+  <div class="cx-footer-main">
+    <div class="cx-footer-identity">
+      <span class="cx-footer-logo">CONXIAN<span class="cx-footer-dot">.</span></span>
+      <p>Open infrastructure for a sovereign, interoperable future. Rooted in verification, not promises.</p>
+      <a href="https://github.com/Conxian">Explore the source ↗</a>
+    </div>
+    <div class="cx-footer-col"><h2>Explore</h2><a href="/#principles">Vision</a><a href="/#ecosystem">Ecosystem</a><a href="/ecosystem/status/">Status and evidence</a><a href="/transparency/">Transparency</a></div>
+    <div class="cx-footer-col"><h2>Build</h2><a href="/guides/getting-started/">Getting started</a><a href="/docs/architecture/">Architecture</a><a href="/docs/capability-evidence/">Capability evidence</a><a href="https://github.com/Conxian">GitHub</a></div>
+    <div class="cx-footer-col"><h2>Organization</h2><a href="https://www.conxian-labs.com/">Conxian Labs ↗</a><a href="/docs/domain-firewall/">Domain separation</a><a href="/docs/enclave-sdk/">Enclave SDK</a><a href="/docs/gateway/">Gateway</a></div>
+  </div>
+  <div class="cx-footer-bottom"><span>© {new Date().getFullYear()} Conxian ecosystem. Repository licenses govern individual components.</span><span>BITCOIN-ROOTED · TOKENLESS · OPEN TO BUILDERS</span></div>
+</footer>
+) : <DefaultFooter><slot /></DefaultFooter>}
+<style>
+  .cx-global-footer { border-top: 1px solid rgba(210,172,101,.22); background: #101416; padding: 5rem clamp(1rem,5vw,5rem) 2rem; color: #f3eee3; }
+  .cx-footer-main { display: grid; grid-template-columns: 2fr repeat(3,1fr); gap: clamp(2rem,4vw,5rem); max-width: 1280px; margin: auto; }
+  .cx-footer-logo { display: inline-block; font-size: 2rem; font-weight: 800; letter-spacing: .12em; }.cx-footer-dot { color:#d2ac65; }
+  .cx-footer-identity p { max-width: 330px; line-height: 1.75; margin: 1.1rem 0; color: #a8a9a5; font-size: .92rem; }
+  .cx-footer-identity a { color: #d2ac65; font-size: .82rem; }
+  .cx-footer-col { display: flex; flex-direction: column; gap: .86rem; }
+  .cx-footer-col h2 { font-size: .71rem; letter-spacing: .18em; color: #d2ac65; text-transform: uppercase; font-weight: 700; margin-bottom: .55rem; }
+  .cx-footer-col a { font-size: .87rem; text-decoration: none; color: #cac9c2; }.cx-footer-col a:hover {color:#e2bd7b}
+  .cx-footer-bottom { max-width: 1280px; margin: 5rem auto 0; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; border-top: 1px solid rgba(210,172,101,.17); padding-top: 1.5rem; font-size: .65rem; letter-spacing: .06em; color: #8e938e; }
+  .cx-global-footer a:focus-visible {outline:3px solid #f5cc73;outline-offset:4px}
+  @media(max-width:780px) { .cx-footer-main {grid-template-columns:repeat(2,minmax(0,1fr))} .cx-footer-identity {grid-column:1/-1} }
+  @media(max-width:440px) { .cx-footer-main {grid-template-columns:1fr 1fr;gap:2rem 1rem}.cx-global-footer {padding-top:3rem} }
+</style>
