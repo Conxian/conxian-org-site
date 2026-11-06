@@ -20,8 +20,16 @@ conxian.org, www.conxian.org {
 		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://*.conxian.org;"
 	}
 
-	# Fallback for Astro SSG routes
-	try_files {path} {path}/ {path}/index.html /404.html
+	# Astro SSG route fallback. Unmatched paths must return a real 404
+	# status; serving /404.html via try_files returned 200 for every
+	# unknown path and masked the true discovery state.
+	try_files {path} {path}/ {path}/index.html
+
+	handle_errors {
+		@notfound expression {http.error.status_code} == 404
+		rewrite @notfound /404.html
+		file_server
+	}
 }
 
 # Subdomain Reverse Proxy Directives
