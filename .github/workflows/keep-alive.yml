@@ -1,0 +1,62 @@
+name: Service Keep-Alive
+
+# All five Render services (conxian-org, conxian-labs-site, conxian-gateway,
+# conxian-nexus, conxian-business) run on Render's free plan, which spins an
+# idle instance down after ~15 minutes. The next request then blocks 30-60s
+# while it cold-starts, which reads as an outage. This scheduled warm-up keeps
+# the public production surface responsive.
+#
+# Note: GitHub disables scheduled workflows after 60 days without repository
+# activity. If the schedule stops firing, push a commit or re-enable it from
+# the Actions tab.
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: keep-alive
+  cancel-in-progress: false
+
+jobs:
+  warm:
+    name: Warm production endpoints
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Ping public production endpoints
+        run: |
+          set -uo pipefail
+
+          endpoints=(
+            "https://conxian.org/"
+            "https://www.conxian.org/"
+            "https://www.conxian-labs.com/"
+            "https://bos.conxian-labs.com/api/health"
+            "https://gateway.conxian.org/api/v1/health"
+            "https://nexus.conxian.org/health"
+          )
+
+          failures=0
+          for url in "${endpoints[@]}"; do
+            # A cold start can take 30-60s, so allow a generous timeout and
+            # retry transient 5xx/timeout responses before giving up.
+            code=$(curl -sS -o /dev/null -w '%{http_code}' \
+              --max-time 90 --retry 2 --retry-delay 10 --retry-all-errors \
+              "$url" 2>/dev/null || echo "000")
+            printf '%-48s HTTP %s\n' "$url" "$code"
+            case "$code" in
+              2*|3*) ;;
+              *) failures=$((failures + 1)) ;;
+            esac
+          done
+
+          echo "unreachable=$failures of ${#endpoints[@]}"
+          if [ "$failures" -eq "${#endpoints[@]}" ]; then
+            echo "::error::Every production endpoint is unreachable; the public surface is down."
+            exit 1
+          fi
