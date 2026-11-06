@@ -76,3 +76,24 @@ body:has(.cx-home) .hero .actions a:not(.primary) { border-color: #55534c; color
 @media (max-width: 900px) { .cx-intro,.cx-builder { grid-template-columns: 1fr; } .cx-orbit { width: min(100%,450px); } .cx-principles { grid-template-columns: 1fr; } .cx-system-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
 @media (max-width: 560px) { .cx-intro { min-height: 0; padding-top: 1rem; padding-bottom: 4rem; } .cx-orbit { width: min(100%,320px); } .cx-orbit-core { width: 75px; height: 75px; font-size: 42px; } .cx-strip { justify-content: flex-start; } .cx-section { padding: 4rem 0; } .cx-system-grid { grid-template-columns: 1fr; } .cx-principle { min-height: 260px; } .cx-proof { padding: 2rem; } .cx-last { padding: 5rem 0; } .cx-action { width: 100%; } }
 @media (prefers-reduced-motion: reduce) { .cx-home *, .cx-home *::before, .cx-home *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }
+
+
+/* Complete-site shell integration: remove the duplicated stock Starlight splash hero,
+   expand the editorial canvas, and retain usable documentation navigation. */
+body:has(.cx-home) .hero { display: none !important; }
+body:has(.cx-home) .content-panel { padding-top: 0; }
+body:has(.cx-home) .sl-container { max-width: 1320px; }
+body:has(.cx-home) main { background: #101416; }
+body:has(.cx-home) .cx-intro h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(2.85rem, 5.4vw, 5.8rem); font-weight: 400; letter-spacing: -.055em; line-height: 1.04; margin: 1.8rem 0; color: #f3eee3; }
+body:has(.cx-home) .cx-intro h1 em { color: #d2ac65; font-weight: 400; }
+body:has(.cx-home) .cx-intro h1::before { display: none; }
+body:has(.cx-home) .main-frame { overflow: visible; }
+body:has(.cx-home) .cx-home { padding-inline: clamp(0rem, 1vw, 1rem); }
+body:has(.cx-home) .pagination-links { display: none; }
+body:has(.cx-home) .cx-orbit { filter: drop-shadow(0 0 45px rgba(210,172,101,.08)); }
+@media(max-width: 600px) { body:has(.cx-home) .cx-intro h1 { font-size: clamp(2.6rem,10vw,3.7rem); } }
+
+/* Documentation pages use the same Conxian brand accents while preserving
+   Starlight's search, sidebar, skip link, page TOC and accessible navigation. */
+:root { --sl-color-accent-low: #302b20; --sl-color-accent: #b78944; --sl-color-accent-high: #f4d8a0; }
+:root[data-theme='light'] { --sl-color-accent-low: #f3ebda; --sl-color-accent: #795720; --sl-color-accent-high: #312511; }
