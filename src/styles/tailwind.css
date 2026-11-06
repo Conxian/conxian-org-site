@@ -97,3 +97,24 @@ body:has(.cx-home) .cx-orbit { filter: drop-shadow(0 0 45px rgba(210,172,101,.08
    Starlight's search, sidebar, skip link, page TOC and accessible navigation. */
 :root { --sl-color-accent-low: #302b20; --sl-color-accent: #b78944; --sl-color-accent-high: #f4d8a0; }
 :root[data-theme='light'] { --sl-color-accent-low: #f3ebda; --sl-color-accent: #795720; --sl-color-accent-high: #312511; }
+
+/* Match Starlight's fixed header, sidebar, and content offsets to the custom shell.
+   One authoritative nav-height variable controls every viewport. */
+:root { --sl-nav-height: 5rem; --sl-nav-pad-y: 0px; }
+:root { scroll-padding-top: calc(var(--sl-nav-height) + 1.5rem); }
+:is(.cx-home, .sl-markdown-content) [id] { scroll-margin-top: calc(var(--sl-nav-height) + 1.5rem); }
+body:has(.cx-home) .cx-home { padding-block-start: clamp(1.25rem, 2.8vw, 3rem); }
+body:has(.cx-home) .cx-intro { min-height: 0; }
+body:has(.cx-home) .cx-intro-copy, body:has(.cx-home) .cx-orbit { min-width: 0; }
+body:has(.cx-home) .cx-section-heading h2 { overflow-wrap: anywhere; }
+body:has(.cx-home) .cx-strip span { max-width: 100%; }
+@media (max-width: 50rem) {
+  :root { --sl-nav-height: 4.5rem; }
+  body:has(.cx-home) .cx-home { padding-block-start: 1.2rem; }
+}
+@media (max-width: 36rem) {
+  .cx-intro { gap: 1rem; }
+  .cx-intro-copy h1 { overflow-wrap: normal; hyphens: auto; }
+  .cx-section-heading h2 { font-size: clamp(2.2rem, 10vw, 3.2rem); }
+}
+@media print { .cx-global-header { display: none; } }
