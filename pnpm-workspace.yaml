@@ -1,10 +1,9 @@
 packages:
   - .
 minimumReleaseAge: 1440
-strictDepBuilds: true
-onlyBuiltDependencies:
-  - esbuild
-  - sharp
+allowBuilds:
+  esbuild: true
+  sharp: true
 
 overrides:
   devalue: 5.9.3
