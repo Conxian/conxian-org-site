@@ -73,7 +73,7 @@ conxian-org-site/
 
 ### Prerequisites
 
-* Node.js v24.x
+* Node.js v26.x
 * `pnpm` v10.28.0 (repository packageManager pin)
 
 ### Commands
@@ -125,7 +125,7 @@ Conxian's organizational architecture aligns with **[Conxian Business Issue #131
 
 ## Reproducible deployment builds
 
-Use Node 24 and pnpm 10.28.0, as pinned in package.json and CI. Install with
+Use Node 26 and pnpm 10.28.0, as pinned in package.json and CI. Install with
 `pnpm install --frozen-lockfile`; deployment must not regenerate the lockfile.
 The workspace permits dependency scripts only for esbuild and sharp and keeps
 strict dependency-build checking enabled, with a 24-hour minimum release age.
@@ -137,5 +137,5 @@ same `dist` output is produced by `pnpm build` in the image build. Docker copies
 the workspace policy before the install and excludes local dependencies, generated
 output, and environment files.
 
-A successful build does not establish live status; confirm the rendered page on the
-deployed host before treating a content change as aligned.
+A successful build does not establish live status; confirm the rendered page on
+the deployed host before treating a content change as aligned.
