@@ -2,7 +2,7 @@
 
 `conxian.org` documents public protocol contracts, verification/routing references, source repositories, and developer tooling. Bitcoin L1 is the canonical trust/finality root for universal-chain service. External chains, networks, layers, protocols, and assets remain in scope. No native Conxian token, speculative tokenomics, or native staking incentive is introduced.
 
-`conxian-labs.com` is the commercial boundary for managed APIs, deployment orchestration, enterprise SLAs, security auditing, and compliance integrations. Documentation does not confer custody, release authority, or regulated permissions. Each repository's license remains authoritative; Nexus is BUSL-1.1 source available rather than an OSI open-source license.
+`conxian-labs.com` is the commercial boundary for managed APIs, deployment orchestration, enterprise SLAs, security auditing, and compliance integrations. Documentation does not confer custody, release authority, or regulated permissions. Each repository's license remains authoritative; Nexus is AGPL-3.0 licensed, so the ecosystem is not uniformly MIT licensed.
 
 The Astro/Starlight content collection publishes source-linked reference pages. Registry inventory, implemented primitives, runtime registration, provider health, integrated operations, independent review, and production qualification are separate facts. The dated capability-evidence page links immutable SDK source and non-release public signing conformance proof without upgrading catalog rows into live connections.
 

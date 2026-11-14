@@ -12,7 +12,7 @@ The official technical distribution, developer documentation, and public status 
 
 This repository is the public protocol and developer documentation surface. Bitcoin L1 is the canonical trust/finality root for universal-chain infrastructure: external chains, networks, layers, and assets remain in scope. There is no native Conxian token, speculative tokenomics, or native staking incentive.
 
-Public protocol contracts and developer references belong to `conxian.org`. Managed APIs, enterprise orchestration, SLAs, security auditing, and compliance integrations belong to `conxian-labs.com`. See [ARCHITECTURE.md](ARCHITECTURE.md) and the [capability evidence page](src/content/docs/docs/capability-evidence.mdx). Repository licenses remain authoritative; Nexus is BUSL-1.1 source available.
+Public protocol contracts and developer references belong to `conxian.org`. Managed APIs, enterprise orchestration, SLAs, security auditing, and compliance integrations belong to `conxian-labs.com`. See [ARCHITECTURE.md](ARCHITECTURE.md) and the [capability evidence page](src/content/docs/docs/capability-evidence.mdx). Repository licenses remain authoritative; Nexus is AGPL-3.0 licensed.
 
 Hardware drivers and cryptographic interfaces have different evidence levels. Registry counts, build success, or mechanism metadata cannot establish live integrations, hardware provenance, independent custody, or production qualification.
 
