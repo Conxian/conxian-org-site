@@ -74,7 +74,7 @@ conxian-org-site/
 ### Prerequisites
 
 * Node.js v26.x
-* `pnpm` v10.28.0 (repository packageManager pin)
+* `pnpm` v11.28.9 (repository packageManager pin)
 
 ### Commands
 
@@ -117,7 +117,7 @@ All code changes to `conxian.org` must pass the Gitleaks automated secret scanne
 ## Organizational Refinement & CXIP Proposal #1317
 
 Conxian's organizational architecture aligns with **[Conxian Business Issue #1317](https://github.com/Conxian/conxian-business/issues/1317)** (*CXIP?:: Conxian org wide upgrade and refinement proposal*), driving:
-* Complete auditability across all 12 core ecosystem repositories.
+* Complete auditability across the 14-repository organization (11 public / 3 private, 1 archived).
 * Enforced legal domain separation between `conxian.org` (Protocol Surface) and `conxian-labs.com` (Corporate Surface).
 * Pure hardware enclave (TEE) execution boundaries and memory-safe Rust primitives.
 * Native ISO 20022 XML to Bitcoin Layer 1 DLC settlement mappings with OData v4 JSON query callbacks.
@@ -125,7 +125,7 @@ Conxian's organizational architecture aligns with **[Conxian Business Issue #131
 
 ## Reproducible deployment builds
 
-Use Node 26 and pnpm 10.28.0, as pinned in package.json and CI. Install with
+Use Node 26 and pnpm 11.28.9, as pinned in package.json and CI. Install with
 `pnpm install --frozen-lockfile`; deployment must not regenerate the lockfile.
 The workspace permits dependency scripts only for esbuild and sharp and keeps
 strict dependency-build checking enabled, with a 24-hour minimum release age.
