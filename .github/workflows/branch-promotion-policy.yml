@@ -1,0 +1,38 @@
+name: Branch Promotion Policy
+
+# Single-trunk repositories publish one artifact from `main` with no
+# `staged`/`dev` ladder, so the forward promotion route cannot apply. This
+# enforces the narrower rule the org policy records for such repositories:
+# an ordinary work-branch head, from this repository, with the Feature -> dev
+# checklist. It closes the gap where these repositories had no gate at all.
+
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize, edited, ready_for_review, converted_to_draft]
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: branch-promotion-policy-${{ github.event.number }}
+  cancel-in-progress: true
+
+jobs:
+  enforce:
+    name: Enforce branch promotion rules
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout policy implementation
+        uses: actions/checkout@v4
+        with:
+          # Always run the trusted default-branch copy, never the PR head.
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Enforce route and checklist
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python3 .github/scripts/branch_promotion_check.py --event-path "$GITHUB_EVENT_PATH"
